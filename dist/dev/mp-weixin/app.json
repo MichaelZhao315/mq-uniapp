@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/points/index",
+    "pages/assessment/index",
+    "pages/address/index"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "red",
+    "list": [
+      {
+        "pagePath": "pages/component/index",
+        "text": "组件"
+      },
+      {
+        "pagePath": "pages/API/index",
+        "text": "接口"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

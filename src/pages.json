@@ -1,0 +1,69 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "名企-上海落户通",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/points/index",
+			"style": {
+				"navigationBarTitleText": "积分计算器",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},
+		{
+			"path": "pages/assessment/index",
+			"style": {
+				"navigationBarTitleText": "落户测评",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},
+		{
+			"path": "pages/address/index",
+			"style": {
+				"navigationBarTitleText": "办理地址",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		}
+	],
+	
+	"tabBar": {
+		"color": "#B8BCC3",
+		"selectedColor": "#002451",
+		"borderStyle": "rgba(220,220,220,1)",
+		"backgroundColor": "white",
+		"height":"160rpx",
+		"list": [{
+			"pagePath": "pages/home/index",
+			"iconPath": "static/images/home.png",
+			"selectedIconPath": "static/images/home_active.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/points/index",
+			"iconPath": "static/images/jfjs.png",
+			"selectedIconPath": "static/images/jfjs_active.png",
+			"text": "积分计算"
+		},
+		{
+			"pagePath": "pages/assessment/index",
+			"iconPath": "static/images/lhcp.png",
+			"selectedIconPath": "static/images/lhcp_active.png",
+			"text": "落户测评"
+		},
+		{
+			"pagePath": "pages/address/index",
+			"iconPath": "static/images/bldz.png",
+			"selectedIconPath": "static/images/bldz_active.png",
+			"text": "办理地址"
+		}]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F9FA"
+	}
+}

@@ -6,7 +6,7 @@
       <uni-forms ref="baseForm" :modelValue="baseFormData">
         <uni-forms-item>
           <view class="title">一、您的年龄</view>
-          <uni-easyinput v-model="baseFormData.name" placeholder="请输入姓名" class="inputText" />
+          <uni-easyinput v-model="baseFormData.name" placeholder="请输入年龄" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">二、教育背景</view>
@@ -118,10 +118,11 @@ function radioChange(evt) {
 .radioTag {
   border: 1px solid rgba(231, 231, 231, 1);
   border-radius: 30rpx;
-  padding: 30rpx;
+  padding: 20rpx;
   background: #FFFFFF;
   margin-bottom: 22rpx;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 

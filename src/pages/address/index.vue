@@ -22,13 +22,15 @@
         <image class="icon" src="@/static/images/share.png" />分享
       </view>
     </view>
-
+    <onlineChat />
+    <phone />
   </view>
 </template>
   
 <script setup lang="ts">
 import { ref } from 'vue'
-const title = ref('Hello')
+import onlineChat from "@/components/onlineChat.vue";
+import phone from "@/components/phone.vue";
 </script>
 <style lang="scss" scoped>
 .content {

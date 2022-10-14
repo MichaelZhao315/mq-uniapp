@@ -8,27 +8,27 @@
           @confirm="search" />
       </view>
       <view class="itemWrap">
-        <view class="item active">
+        <view :class="`item ${active==0&&'active'}`" @click="handleChange(0)">
           <image src="@/static/images/jzzjf.png" class="imgtag" />
           <text class="tagname">居住证积分</text>
         </view>
-        <view class="item">
+        <view :class="`item ${active==1&&'active'}`" @click="handleChange(1)">
           <image src="@/static/images/jzh.png" class="imgtag" />
           <text class="tagname">居转户</text>
         </view>
-        <view class="item">
+        <view :class="`item ${active==2&&'active'}`" @click="handleChange(2)">
           <image src="@/static/images/rcyj.png" class="imgtag" />
           <text class="tagname">人才引进</text>
         </view>
-        <view class="item">
+        <view :class="`item ${active==3&&'active'}`" @click="handleChange(3)">
           <image src="@/static/images/lhtk.png" class="imgtag" />
           <text class="tagname">投靠落户</text>
         </view>
-        <view class="item">
+        <view :class="`item ${active==4&&'active'}`" @click="handleChange(4)">
           <image src="@/static/images/lxs.png" class="imgtag" />
           <text class="tagname">留学生</text>
         </view>
-        <view class="item">
+        <view :class="`item ${active==5&&'active'}`" @click="handleChange(5)">
           <image src="@/static/images/alfx.png" class="imgtag" />
           <text class="tagname">案例分享</text>
         </view>
@@ -36,59 +36,82 @@
     </view>
     <view class="listcontent">
       <!-- 第一条 -->
-      <view class="list1">
-        <image class="img" src="@/static/images/pic.jpeg" />
-        <text class="title">2022年上海落户细则</text>
-        <view class="time">
-          <text> 233次 </text>
-          <text>2022-2-21</text>
+      <template v-if="newList.length>0">
+        <view class="list1">
+          <image class="img" src="@/static/images/pic.jpeg" />
+          <text class="title">{{newList[0].title}}</text>
+          <view class="time">
+            <text> {{newList[0].readNum}} </text>
+            <text>{{newList[0].time}}</text>
+          </view>
         </view>
-      </view>
+      </template>
       <!-- 第+1条 -->
-      <view class="list">
-        <view class="left">
-          <text class="title">上海落户的排队时怎么个排法？ 分数线时社保和个税吗？</text>
-          <view class="time">
-            <text class="num"> 233次 </text>
-            <text>2022-2-21</text>
+      <template v-if="newList.length>1">
+        <view class="list" v-for="list in newList" :key="list.id">
+          <view class="left">
+            <text class="title">{{list.title}}</text>
+            <view class="time">
+              <text class="num"> {{list.readNum}} </text>
+              <text>{{list.time}}</text>
+            </view>
           </view>
+          <image class="rightImg" src="@/static/images/pic.jpeg" />
         </view>
-        <image class="rightImg" src="@/static/images/pic.jpeg" />
-      </view>
-      <view class="list">
-        <view class="left">
-          <text class="title">上海落户的排队时怎么个排法？ 分数线时社保和个税吗？</text>
-          <view class="time">
-            <text class="num"> 233次 </text>
-            <text>2022-2-21</text>
-          </view>
-        </view>
-        <image class="rightImg" src="@/static/images/pic.jpeg" />
-      </view>
-      <view class="list">
-        <view class="left">
-          <text class="title">上海落户的排队时怎么个排法？上海落户的排队时怎么个排法？上海落户的排队时怎么个排法？ 分数线时社保和个税吗？</text>
-          <view class="time">
-            <text class="num"> 233次 </text>
-            <text>2022-2-21</text>
-          </view>
-        </view>
-        <image class="rightImg" src="@/static/images/pic.jpeg" />
-      </view>
+      </template>
     </view>
-
+    <onlineChat />
+    <phone />
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const title = ref('Hello')
+import { reactive, toRefs } from 'vue'
+import onlineChat from "@/components/onlineChat.vue";
+import phone from "@/components/phone.vue";
+const state: {
+  active: number,
+  newList: Array<any>
+} = reactive({
+  // 响应式数据
+  active: 0,
+  newList: [{
+    id: 12,
+    title: "1上海落户的排队时怎么个排法？ 分数线时社保和个税吗？",
+    readNum: 1,
+    time: "2022-12-2",
+    img: "@/static/images/pic.jpeg"
+  },
+  {
+    id: 13,
+    title: "2上海落户的排队时怎么个排法？ 分数线时社保和个税吗？",
+    readNum: 123,
+    time: "2022-12-2",
+    img: "@/static/images/pic.jpeg"
+  },
+  {
+    id: 14,
+    title: "3上海落户的排队时怎么个排法？ 分数线时社保和个税吗？",
+    readNum: 311,
+    time: "2022-12-2",
+    img: "@/static/images/pic.jpeg"
+  }
+  ]
+});
+const { active, newList } = toRefs(state);
+function handleChange(val: number) {
+  state.active = val
+}
+function search() {
+
+}
+
 </script>
 
 
 <style lang="scss" scoped>
 .headContent {
-  background: url('@/static/images/top_bg_shanghai.png') no-repeat top center;
+  background: url('../../static/images/top_bg_shanghai.png') no-repeat top center;
   width: 100%;
   height: 700rpx;
   background-size: 100%;

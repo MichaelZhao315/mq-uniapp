@@ -3,20 +3,38 @@
     <view class="headtitle">上海落户信息填写</view>
     <image class="element" src="@/static/images/element.png"></image>
     <view class="content">
-      <view class="desc">上海落户信息填写</view>
       <uni-forms ref="baseForm" :modelValue="baseFormData">
         <uni-forms-item>
           <view class="title">一、您的姓名</view>
           <uni-easyinput v-model="baseFormData.name" placeholder="请输入姓名" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
+          <view class="title">二、性别</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange1">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">男</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">女</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
           <view class="title">三、文化程度</view>
           <view class="uni-list">
-            <radio-group @change="radioChange">
+            <radio-group @change="radioChange2">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
-                  <radio :value="item.value" :checked="index === current" />
+                  <radio :value="item.value" />
                 </view>
               </label>
             </radio-group>
@@ -25,82 +43,196 @@
         <uni-forms-item>
           <view class="title">四、学位</view>
           <view class="uni-list">
-            <radio-group @change="radioChange">
+            <radio-group @change="radioChange3">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
-                  <radio :value="item.value" :checked="index === current" />
+                  <radio :value="item.value" />
                 </view>
               </label>
             </radio-group>
           </view>
         </uni-forms-item>
         <uni-forms-item>
-          <view class="title">四、社会保险年</view>
-          <uni-easyinput v-model="baseFormData.name" placeholder="请输入缴费念书，为缴填0" class="inputText" />
+          <view class="title">五、所学专业</view>
+          <uni-easyinput v-model="baseFormData.zhuanye" placeholder="填写大专以上专业" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
-          <button type="primary">提交</button>
+          <view class="title">六、公司是否是高新企业或重点金融企业</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange4">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">是</text>
+                  <radio value="0" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">否</text>
+                  <radio value="1" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">七、何时入职</view>
+          <view class="example-body">
+            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.time" />
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">八、有无中高级职称/技能资格证书</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange5">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">有</text>
+                  <radio value="0" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">无</text>
+                  <radio value="1" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">九、职称/技能全称</view>
+          <uni-easyinput v-model="baseFormData.skill" placeholder="请输入您的职称/技能全称" class="inputText" />
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十、居住证首次办证时间</view>
+          <view class="example-body">
+            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.banzheng" />
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十一、近四年上海社保缴纳的基数</view>
+          <view class="title">例：2018年1月 - -至今</view>
+          <uni-easyinput v-model="baseFormData.year1" placeholder="填写近一年社保基数" :styles="styles" />
+          <uni-easyinput v-model="baseFormData.year2" placeholder="填写近二年社保基数" styles="marginBotton:10px" />
+          <uni-easyinput v-model="baseFormData.year3" placeholder="填写近三年社保基数" styles="marginBotton:10px" />
+          <uni-easyinput v-model="baseFormData.year4" placeholder="填写近四年社保基数" styles="marginBotton:10px" />
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十二、联系方式</view>
+          <uni-easyinput v-model="baseFormData.phone" placeholder="填写联系方式" class="inputText" type="number" />
+          <view class="title">之后会有老师联系您</view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <button type="primary" @click="handleSubmit">提交</button>
         </uni-forms-item>
       </uni-forms>
+      <view class="tipBox">
+        <view class="step">注：社保查询流程图</view>
+        <view class="step">下载“上海人社”APP</view>
+        <image src="@/static/images/app001.png" class="app1" />
+        <view class="step">第一步：登录或注册上海人社账号</view>
+        <image src="@/static/images/app002.png" class="app2" />
+        <view class="step">第二步：点击首页“业务经办”模块</view>
+        <image src="@/static/images/app003.png" class="app3" />
+        <view class="step">第三步：“申领CA证书”并设置CA证书密码（第一次登录需申领，非首次输入密码即可）</view>
+        <image src="@/static/images/app004.png" class="app4" />
+        <view class="step">第四步：点击“社会保险”模块</view>
+        <view class="step">第五步：点击“城保缴费查询”进入“养老保险缴费情况查询”</view>
+        <view class="step">最后查看每年社保基数即可</view>
+      </view>
     </view>
+    <onlineChat />
+    <phone />
   </view>
 </template>
   
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
+import onlineChat from "@/components/onlineChat.vue";
+import phone from "@/components/phone.vue";
 let state = reactive({
   // 响应式数据
   baseFormData: {
-    discount: 0,
     name: "",
-    email: "",
-    phone: "",
+    gender: "",
+    wenhua: "",
+    xuewei: "",
+    zhuanye: "",
+    company: "",
+    zhengshu: "",
+    skill: "",
+    time: "",
+    banzheng: "",
+    year1: "",
+    year2: "",
+    year3: "",
+    year4: "",
+    phone: ""
+  },
+  styles: {
+    marginBottom: "10rpx"
   },
   items: [{
-    value: 'USA',
+    value: '0',
     name: '高中（中专、职校、技校）及以下',
     checked: 'true'
   },
   {
-    value: 'CHN',
+    value: '1',
     name: '大专（高职）学历'
   },
   {
-    value: 'BRA',
+    value: '2',
     name: '大学本科学历和学士学位'
   },
   {
-    value: 'JPN',
+    value: '3',
     name: '硕士研究生学历学位'
   },
   {
-    value: 'ENG',
+    value: '4',
     name: '博士研究生学历'
   },
   ],
   item2: [{
-    value: 'USA',
+    value: '0',
     name: '博士',
     checked: 'true'
   },
   {
-    value: 'CHN',
+    value: '1',
     name: '本科'
   },
   {
-    value: 'BRA',
+    value: '2',
     name: '大专'
   },
   {
-    value: 'BRA',
+    value: '3',
     name: '无'
   },
   ]
 });
-const { baseFormData, items, item2 } = toRefs(state);
-function radioChange(evt) {
-
+const { baseFormData, items, item2, styles } = toRefs(state);
+function radioChange1(evt: { detail: { value: any; }; }) {
+  state.baseFormData.gender = evt.detail.value
+}
+function radioChange2(evt: { detail: { value: any; }; }) {
+  state.baseFormData.wenhua = evt.detail.value
+}
+function radioChange3(evt: { detail: { value: any; }; }) {
+  state.baseFormData.xuewei = evt.detail.value
+}
+function radioChange4(evt: { detail: { value: any; }; }) {
+  state.baseFormData.company = evt.detail.value
+}
+function radioChange5(evt: { detail: { value: any; }; }) {
+  state.baseFormData.zhengshu = evt.detail.value
+}
+function handleSubmit() {
+  console.log(state.baseFormData, 'baseFormData')
 }
 </script>
   
@@ -140,22 +272,17 @@ function radioChange(evt) {
   .radioTag {
     border: 1px solid rgba(231, 231, 231, 1);
     border-radius: 30rpx;
-    padding: 34rpx;
+    padding: 20rpx;
     background: #FFFFFF;
     margin-bottom: 22rpx;
     display: flex;
     justify-content: space-between;
   }
 
-
-
-  .desc {
-    padding: 0 0 20rpx 0;
-  }
-
   .inputText {
     width: 100%;
     height: 88rpx;
+    margin-bottom: 10rpx;
   }
 
   .radioName {
@@ -164,6 +291,47 @@ function radioChange(evt) {
     color: #061423;
     letter-spacing: 0;
     font-weight: 400;
+  }
+}
+
+.tipBox {
+  .step {
+    font-family: PingFangSC-Regular;
+    font-size: 28rpx;
+    color: #B20202;
+    letter-spacing: 0;
+    font-weight: 400;
+    margin: 60rpx 0 40rpx 0;
+  }
+
+
+
+  .app1 {
+    width: 458rpx;
+    height: 174rpx;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .app2 {
+    width: 398rpx;
+    height: 460rpx;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .app3 {
+    width: 296rpx;
+    height: 642rpx;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .app4 {
+    width: 554rpx;
+    height: 441rpx;
+    margin: 0 auto;
+    display: flex;
   }
 }
 </style>

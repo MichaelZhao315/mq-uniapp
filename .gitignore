@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 /.hbuilderx
+=======
+node_modules/
+unpackage/
+dist/
+.vscode
+.env.development
+>>>>>>> 6f40bfad1a861a09fa013c2afc4f4634aa621d67

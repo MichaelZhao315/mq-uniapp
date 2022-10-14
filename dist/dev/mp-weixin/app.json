@@ -9,21 +9,37 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F9FA"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black",
-    "backgroundColor": "red",
+    "color": "#B8BCC3",
+    "selectedColor": "#002451",
+    "borderStyle": "rgba(220,220,220,1)",
+    "backgroundColor": "white",
     "list": [
       {
-        "pagePath": "pages/component/index",
-        "text": "组件"
+        "pagePath": "pages/home/index",
+        "iconPath": "static/images/home.png",
+        "selectedIconPath": "static/images/home_active.png",
+        "text": "首页"
       },
       {
-        "pagePath": "pages/API/index",
-        "text": "接口"
+        "pagePath": "pages/points/index",
+        "iconPath": "static/images/jfjs.png",
+        "selectedIconPath": "static/images/jfjs_active.png",
+        "text": "积分计算"
+      },
+      {
+        "pagePath": "pages/assessment/index",
+        "iconPath": "static/images/lhcp.png",
+        "selectedIconPath": "static/images/lhcp_active.png",
+        "text": "落户测评"
+      },
+      {
+        "pagePath": "pages/address/index",
+        "iconPath": "static/images/bldz.png",
+        "selectedIconPath": "static/images/bldz_active.png",
+        "text": "办理地址"
       }
     ]
   },

@@ -23,7 +23,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     };
   }
 });
-var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "/Users/chengqian/Desktop/my-vue3-project/src/App.vue"]]);
+var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "/Users/chengqian/Desktop/mq-uniapp/src/App.vue"]]);
 function createApp() {
   const app = common_vendor.createSSRApp(App);
   return {

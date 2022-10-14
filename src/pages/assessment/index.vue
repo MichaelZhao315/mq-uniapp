@@ -11,17 +11,17 @@
         <uni-forms-item>
           <view class="title">二、性别</view>
           <view class="uni-list">
-            <radio-group @change="radioChange">
+            <radio-group @change="radioChange1">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">男</text>
-                  <radio value="i0" />
+                  <radio value="1" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">女</text>
-                  <radio value="i0" />
+                  <radio value="2" />
                 </view>
               </label>
             </radio-group>
@@ -30,11 +30,11 @@
         <uni-forms-item>
           <view class="title">三、文化程度</view>
           <view class="uni-list">
-            <radio-group @change="radioChange">
+            <radio-group @change="radioChange2">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
-                  <radio :value="item.value" :checked="index === current" />
+                  <radio :value="item.value" />
                 </view>
               </label>
             </radio-group>
@@ -43,11 +43,11 @@
         <uni-forms-item>
           <view class="title">四、学位</view>
           <view class="uni-list">
-            <radio-group @change="radioChange">
+            <radio-group @change="radioChange3">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
-                  <radio :value="item.value" :checked="index === current" />
+                  <radio :value="item.value" />
                 </view>
               </label>
             </radio-group>
@@ -55,22 +55,22 @@
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">五、所学专业</view>
-          <uni-easyinput v-model="baseFormData.name" placeholder="填写大专以上专业" class="inputText" />
+          <uni-easyinput v-model="baseFormData.zhuanye" placeholder="填写大专以上专业" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">六、公司是否是高新企业或重点金融企业</view>
           <view class="uni-list">
-            <radio-group @change="radioChange">
+            <radio-group @change="radioChange4">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">是</text>
-                  <radio value="i0" />
+                  <radio value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
-                  <radio value="i0" />
+                  <radio value="1" />
                 </view>
               </label>
             </radio-group>
@@ -79,23 +79,23 @@
         <uni-forms-item>
           <view class="title">七、何时入职</view>
           <view class="example-body">
-            <uni-datetime-picker type="date" :clear-icon="false" />
+            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.time" />
           </view>
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">八、有无中高级职称/技能资格证书</view>
           <view class="uni-list">
-            <radio-group @change="radioChange">
+            <radio-group @change="radioChange5">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">有</text>
-                  <radio value="i0" />
+                  <radio value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
-                  <radio value="i0" />
+                  <radio value="1" />
                 </view>
               </label>
             </radio-group>
@@ -103,29 +103,29 @@
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">九、职称/技能全称</view>
-          <uni-easyinput v-model="baseFormData.name" placeholder="请输入您的职称/技能全称" class="inputText" />
+          <uni-easyinput v-model="baseFormData.skill" placeholder="请输入您的职称/技能全称" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十、居住证首次办证时间</view>
           <view class="example-body">
-            <uni-datetime-picker type="date" :clear-icon="false" />
+            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.banzheng" />
           </view>
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十一、近四年上海社保缴纳的基数</view>
           <view class="title">例：2018年1月 - -至今</view>
-          <uni-easyinput v-model="baseFormData.name" placeholder="填写近一年社保基数" class="inputText" />
-          <uni-easyinput v-model="baseFormData.name" placeholder="填写近二年社保基数" class="inputText" />
-          <uni-easyinput v-model="baseFormData.name" placeholder="填写近三年社保基数" class="inputText" />
-          <uni-easyinput v-model="baseFormData.name" placeholder="填写近四年社保基数" class="inputText" />
+          <uni-easyinput v-model="baseFormData.year1" placeholder="填写近一年社保基数" :styles="styles" />
+          <uni-easyinput v-model="baseFormData.year2" placeholder="填写近二年社保基数" styles="marginBotton:10px" />
+          <uni-easyinput v-model="baseFormData.year3" placeholder="填写近三年社保基数" styles="marginBotton:10px" />
+          <uni-easyinput v-model="baseFormData.year4" placeholder="填写近四年社保基数" styles="marginBotton:10px" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十二、联系方式</view>
-          <uni-easyinput v-model="baseFormData.name" placeholder="填写联系方式" class="inputText" />
+          <uni-easyinput v-model="baseFormData.phone" placeholder="填写联系方式" class="inputText" type="number" />
           <view class="title">之后会有老师联系您</view>
         </uni-forms-item>
         <uni-forms-item>
-          <button type="primary">提交</button>
+          <button type="primary" @click="handleSubmit">提交</button>
         </uni-forms-item>
       </uni-forms>
       <view class="tipBox">
@@ -143,63 +143,96 @@
         <view class="step">最后查看每年社保基数即可</view>
       </view>
     </view>
+    <onlineChat />
+    <phone />
   </view>
 </template>
   
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
+import onlineChat from "@/components/onlineChat.vue";
+import phone from "@/components/phone.vue";
 let state = reactive({
   // 响应式数据
   baseFormData: {
-    discount: 0,
     name: "",
-    email: "",
-    phone: "",
+    gender: "",
+    wenhua: "",
+    xuewei: "",
+    zhuanye: "",
+    company: "",
+    zhengshu: "",
+    skill: "",
+    time: "",
+    banzheng: "",
+    year1: "",
+    year2: "",
+    year3: "",
+    year4: "",
+    phone: ""
+  },
+  styles: {
+    marginBottom: "10rpx"
   },
   items: [{
-    value: 'USA',
+    value: '0',
     name: '高中（中专、职校、技校）及以下',
     checked: 'true'
   },
   {
-    value: 'CHN',
+    value: '1',
     name: '大专（高职）学历'
   },
   {
-    value: 'BRA',
+    value: '2',
     name: '大学本科学历和学士学位'
   },
   {
-    value: 'JPN',
+    value: '3',
     name: '硕士研究生学历学位'
   },
   {
-    value: 'ENG',
+    value: '4',
     name: '博士研究生学历'
   },
   ],
   item2: [{
-    value: 'USA',
+    value: '0',
     name: '博士',
     checked: 'true'
   },
   {
-    value: 'CHN',
+    value: '1',
     name: '本科'
   },
   {
-    value: 'BRA',
+    value: '2',
     name: '大专'
   },
   {
-    value: 'BRA',
+    value: '3',
     name: '无'
   },
   ]
 });
-const { baseFormData, items, item2 } = toRefs(state);
-function radioChange(evt) {
-
+const { baseFormData, items, item2, styles } = toRefs(state);
+function radioChange1(evt: { detail: { value: any; }; }) {
+  state.baseFormData.gender = evt.detail.value
+}
+function radioChange2(evt: { detail: { value: any; }; }) {
+  state.baseFormData.wenhua = evt.detail.value
+}
+function radioChange3(evt: { detail: { value: any; }; }) {
+  state.baseFormData.xuewei = evt.detail.value
+}
+function radioChange4(evt: { detail: { value: any; }; }) {
+  state.baseFormData.company = evt.detail.value
+}
+function radioChange5(evt: { detail: { value: any; }; }) {
+  state.baseFormData.zhengshu = evt.detail.value
+}
+function handleSubmit() {
+  console.log(state.baseFormData, 'baseFormData')
 }
 </script>
   
@@ -249,6 +282,7 @@ function radioChange(evt) {
   .inputText {
     width: 100%;
     height: 88rpx;
+    margin-bottom: 10rpx;
   }
 
   .radioName {

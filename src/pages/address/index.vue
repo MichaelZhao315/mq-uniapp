@@ -12,13 +12,13 @@
       </view>
     </view>
     <view class="item">
-      <view class="name">
+      <view class="name" @click="handleLocation">
         <image class="icon" src="@/static/images/tag.png" />路线
       </view>
-      <view class="name">
+      <view class="name" @click="call('17521061937')">
         <image class="icon" src="@/static/images/support_2.png" />电话
       </view>
-      <view class="name">
+      <view class="name" @click="handleShare">
         <image class="icon" src="@/static/images/share.png" />分享
       </view>
     </view>
@@ -28,9 +28,69 @@
 </template>
   
 <script setup lang="ts">
-import { ref } from 'vue'
 import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
+function call(phone: string) {
+  const res = uni.getSystemInfoSync();
+  uni.makePhoneCall({
+    phoneNumber: phone
+  });
+  // ios系统默认有个模态框
+  if (res.platform == 'ios') {
+    uni.makePhoneCall({
+      phoneNumber: phone,
+      success() {
+        console.log('拨打成功了');
+      },
+      fail() {
+        console.log('拨打失败了');
+      }
+    })
+  } else {
+    //安卓手机手动设置一个showActionSheet
+    uni.showActionSheet({
+      itemList: [phone, '呼叫'],
+      success: function (res) {
+        if (res.tapIndex == 1) {
+          uni.makePhoneCall({
+            phoneNumber: phone,
+          })
+        }
+      }
+    })
+  }
+}
+function handleLocation() {
+  uni.getLocation({
+    type: 'gcj02', //返回可以用于uni.openLocation的经纬度
+    success: function (res) {
+      const latitude = res.latitude;
+      const longitude = res.longitude;
+      uni.openLocation({
+        latitude: latitude,
+        longitude: longitude,
+        success: function () {
+          console.log('success');
+        }
+      });
+    }
+  });
+}
+
+function handleShare() {
+  uni.share({
+    provider: "weixin",
+    scene: "WXSceneSession",
+    type: 1,
+    summary: "浦东新区人才交流中心",
+    success: function (res) {
+      console.log("success:" + JSON.stringify(res));
+    },
+    fail: function (err) {
+      console.log("fail:" + JSON.stringify(err));
+    }
+  });
+}
 </script>
 <style lang="scss" scoped>
 .content {

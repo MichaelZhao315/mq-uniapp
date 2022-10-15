@@ -41,7 +41,9 @@
           <image class="img" src="@/static/images/pic.jpeg" />
           <text class="title">{{newList[0].title}}</text>
           <view class="time">
-            <text> {{newList[0].readNum}} </text>
+            <text>
+              <image src="@/static/images/view.png" class="view" /> {{newList[0].readNum}}
+            </text>
             <text>{{newList[0].time}}</text>
           </view>
         </view>
@@ -52,7 +54,9 @@
           <view class="left">
             <text class="title">{{list.title}}</text>
             <view class="time">
-              <text class="num"> {{list.readNum}} </text>
+              <text class="num">
+                <image src="@/static/images/view.png" class="view" /> {{list.readNum}}
+              </text>
               <text>{{list.time}}</text>
             </view>
           </view>
@@ -136,6 +140,11 @@ function search() {
   }
 }
 
+.view {
+  width: 28rpx;
+  height: 18rpx;
+  margin-right: 4rpx;
+}
 
 
 .itemWrap {

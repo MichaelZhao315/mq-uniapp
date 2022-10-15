@@ -11,7 +11,7 @@
         <uni-forms-item>
           <view class="title">二、教育背景</view>
           <view class="uni-list">
-            <radio-group @change="radioChange" >
+            <radio-group @change="radioChange">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -24,7 +24,7 @@
         <uni-forms-item>
           <view class="title">三、专业技术职称和技能等级</view>
           <view class="uni-list">
-            <radio-group @change="radioChangeGrade" >
+            <radio-group @change="radioChangeGrade">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -38,8 +38,225 @@
           <view class="title">四、社会保险年</view>
           <uni-easyinput v-model="baseFormData.year" placeholder="请输入缴费年限，未缴填0" class="inputText" type=”number“ />
         </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">五、紧急急需专业</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">是</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">否</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">六、投资纳税或带动本地就业</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">无</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">在沪投资满三年及以上，最近连续三年</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">七、缴纳职工社会保险费基数</view>
+          <view class="uni-list">
+            <view>技术标准：2018年7132元，2019年7832元（2019年11月起8211元），2020年7月9339元</view>
+            <view>最近4年内累计36个月在上海市缴纳职工社会保险费基数同上海市上年度职工平均工资比较：</view>
+            <radio-group @change="radioChangeGrade">
+              <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item3" :key="item.value">
+                <view class="radioTag">
+                  <text class="radioName">{{item.name}}</text>
+                  <radio :value="item.value" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">八、特定的公共服务领域（环卫）</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">是</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">否</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">九、远郊重点区域（临港地区）</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">是</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">否</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十、是否全日制应届高校大学毕业生</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">是</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">否</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十一、您在上海工作期间是否获得过表彰奖励</view>
+          <view class="uni-list">
+            <radio-group @change="radioChangeGrade">
+              <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item4" :key="item.value">
+                <view class="radioTag">
+                  <text class="radioName">{{item.name}}</text>
+                  <radio :value="item.value" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十二、配偶为本地户籍人员</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">是</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">否</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十三、三年内申请积分时提供虚假材料</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">无</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">一次</text>
+                  <radio value="2" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">两次</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十四、五年内行政拘留记录</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">无</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">一次</text>
+                  <radio value="2" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">两次</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
+        <uni-forms-item>
+          <view class="title">十五、五年内一般刑事犯罪记录</view>
+          <view class="uni-list">
+            <radio-group @change="radioChange">
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">无</text>
+                  <radio value="1" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">一次</text>
+                  <radio value="2" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">两次</text>
+                  <radio value="2" />
+                </view>
+              </label>
+            </radio-group>
+          </view>
+        </uni-forms-item>
       </uni-forms>
-      <button type="primary" @click="handleSubmit">提交</button>
+      <button type="primary" @click="handleSubmit">计算积分</button>
     </view>
     <onlineChat />
     <phone />
@@ -59,7 +276,9 @@ const state: {
   },
   current: number,
   items: Array<any>,
-  item2: Array<any>
+  item2: Array<any>,
+  item3: Array<any>,
+  item4: Array<any>,
 } = reactive({
   // 响应式数据
   baseFormData: {
@@ -87,7 +306,7 @@ const state: {
   },
   {
     value: '4',
-    name: '博士研究生学历'
+    name: '博士研究生学历学位'
   },
   ],
   item2: [{
@@ -102,9 +321,65 @@ const state: {
     value: '2',
     name: '国家职业资格四级'
   },
+  {
+    value: '2',
+    name: '国家职业资格三级'
+  },
+  {
+    value: '2',
+    name: '国家职业资格二级（技师）'
+  },
+  {
+    value: '2',
+    name: '国家职业资格一级（高级技师'
+  },
+  ],
+  item3: [
+    {
+      value: '1',
+      name: '未缴纳'
+    },
+    {
+      value: '2',
+      name: '低于80%'
+    },
+    {
+      value: '2',
+      name: '高于等于80%低于1倍'
+    },
+    {
+      value: '2',
+      name: '高于等于1倍低于2倍'
+    },
+    {
+      value: '2',
+      name: '高于等于2倍低于3倍'
+    },
+    {
+      value: '2',
+      name: '最近3年累计24月高于等于3倍'
+    },
+  ],
+  item4: [
+    {
+      value: '1',
+      name: '无'
+    },
+    {
+      value: '2',
+      name: '获得过上海市委办局等市级机关专项性表彰奖励'
+    },
+    {
+      value: '2',
+      name: '获得过上海市委办局等市级机关综合性表彰奖励'
+    },
+    {
+      value: '2',
+      name: '获得过省部级以上政府表彰奖励'
+    }
   ]
 });
-const { baseFormData, items, item2, current } = toRefs(state);
+const { baseFormData, items, item2, item3, item4 } = toRefs(state);
 
 function radioChange(evt: { detail: { value: any; }; }) {
   state.baseFormData.edu = evt.detail.value

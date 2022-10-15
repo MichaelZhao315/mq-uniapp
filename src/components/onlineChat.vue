@@ -1,6 +1,7 @@
 <template>
     <view class="content">
         <image src="@/static/images/online_chat.png" class="online" />
+        <button type="primary" open-type="contact">开始聊天</button>
     </view>
 </template>
     

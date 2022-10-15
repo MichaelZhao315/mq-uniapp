@@ -11,7 +11,7 @@
         <uni-forms-item>
           <view class="title">二、性别</view>
           <view class="uni-list">
-            <radio-group @change="radioChange1">
+            <radio-group @change="radioChange1('gender',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">男</text>
@@ -30,7 +30,7 @@
         <uni-forms-item>
           <view class="title">三、文化程度</view>
           <view class="uni-list">
-            <radio-group @change="radioChange2">
+            <radio-group @change="radioChange1('wenhua',$event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -43,7 +43,7 @@
         <uni-forms-item>
           <view class="title">四、学位</view>
           <view class="uni-list">
-            <radio-group @change="radioChange3">
+            <radio-group @change="radioChange1('xuewei',$event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -60,7 +60,7 @@
         <uni-forms-item>
           <view class="title">六、公司是否是高新企业或重点金融企业</view>
           <view class="uni-list">
-            <radio-group @change="radioChange4">
+            <radio-group @change="radioChange1('zhuanye',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">是</text>
@@ -85,7 +85,7 @@
         <uni-forms-item>
           <view class="title">八、有无中高级职称/技能资格证书</view>
           <view class="uni-list">
-            <radio-group @change="radioChange5">
+            <radio-group @change="radioChange1('zhengshu',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">有</text>
@@ -114,18 +114,27 @@
         <uni-forms-item>
           <view class="title">十一、近四年上海社保缴纳的基数</view>
           <view class="title">例：2018年1月 - -至今</view>
-          <uni-easyinput v-model="baseFormData.year1" placeholder="填写近一年社保基数" :styles="styles" />
-          <uni-easyinput v-model="baseFormData.year2" placeholder="填写近二年社保基数" styles="marginBotton:10px" />
-          <uni-easyinput v-model="baseFormData.year3" placeholder="填写近三年社保基数" styles="marginBotton:10px" />
-          <uni-easyinput v-model="baseFormData.year4" placeholder="填写近四年社保基数" styles="marginBotton:10px" />
+          <view class="mb">
+            <uni-easyinput v-model="baseFormData.year1" placeholder="填写近一年社保基数" />
+          </view>
+          <view class="mb">
+            <uni-easyinput v-model="baseFormData.year2" placeholder="填写近二年社保基数" />
+          </view>
+          <view class="mb">
+            <uni-easyinput v-model="baseFormData.year3" placeholder="填写近三年社保基数" />
+          </view>
+          <view class="mb">
+            <uni-easyinput v-model="baseFormData.year4" placeholder="填写近四年社保基数" />
+          </view>
+
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十二、联系方式</view>
           <uni-easyinput v-model="baseFormData.phone" placeholder="填写联系方式" class="inputText" type="number" />
-          <view class="title">之后会有老师联系您</view>
+          <view class="title" style="text-align: right;margin-top: 5rpx;">之后会有老师联系您</view>
         </uni-forms-item>
         <uni-forms-item>
-          <button type="primary" @click="handleSubmit">提交</button>
+          <button type="default" @click="handleSubmit" style="background:#007aff;color:white">提交</button>
         </uni-forms-item>
       </uni-forms>
       <view class="tipBox">
@@ -152,7 +161,28 @@
 import { reactive, toRefs } from 'vue'
 import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
-let state = reactive({
+let state: {
+  baseFormData: {
+    name: string,
+    gender: string,
+    wenhua: string,
+    xuewei: string,
+    zhuanye: string,
+    company: string,
+    zhengshu: string,
+    skill: string,
+    time: string,
+    banzheng: string,
+    year1: string,
+    year2: string,
+    year3: string,
+    year4: string,
+    phone: string,
+    [propName: string]: string;
+  },
+  items: Array<any>,
+  item2: Array<any>,
+} = reactive({
   // 响应式数据
   baseFormData: {
     name: "",
@@ -170,9 +200,6 @@ let state = reactive({
     year3: "",
     year4: "",
     phone: ""
-  },
-  styles: {
-    marginBottom: "10rpx"
   },
   items: [{
     value: '0',
@@ -215,22 +242,11 @@ let state = reactive({
   },
   ]
 });
-const { baseFormData, items, item2, styles } = toRefs(state);
-function radioChange1(evt: { detail: { value: any; }; }) {
-  state.baseFormData.gender = evt.detail.value
+const { baseFormData, items, item2, } = toRefs(state);
+function radioChange1(key: string, evt: { detail: { value: string; }; }) {
+  state.baseFormData[key] = evt.detail.value
 }
-function radioChange2(evt: { detail: { value: any; }; }) {
-  state.baseFormData.wenhua = evt.detail.value
-}
-function radioChange3(evt: { detail: { value: any; }; }) {
-  state.baseFormData.xuewei = evt.detail.value
-}
-function radioChange4(evt: { detail: { value: any; }; }) {
-  state.baseFormData.company = evt.detail.value
-}
-function radioChange5(evt: { detail: { value: any; }; }) {
-  state.baseFormData.zhengshu = evt.detail.value
-}
+
 function handleSubmit() {
   console.log(state.baseFormData, 'baseFormData')
 }
@@ -243,6 +259,8 @@ function handleSubmit() {
   margin: 80rpx auto;
   display: block;
 }
+
+
 
 .headtitle {
   font-family: PingFangSC-Regular;
@@ -259,6 +277,10 @@ function handleSubmit() {
   width: 100%;
   box-sizing: border-box;
   padding: 48rpx 48rpx 180rpx 48rpx;
+
+  .mb {
+    margin-bottom: 10rpx;
+  }
 
   .title {
     font-family: PingFangSC-Regular;

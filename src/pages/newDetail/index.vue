@@ -1,7 +1,7 @@
 <template>
     <view class="content">
 
-
+        详情
 
 
     </view>

@@ -255,8 +255,11 @@
             </radio-group>
           </view>
         </uni-forms-item>
+        <uni-forms-item>
+          <button type="default" @click="handleSubmit" style="background:#007aff;color:white">计算积分</button>
+        </uni-forms-item>
       </uni-forms>
-      <button type="primary" @click="handleSubmit">计算积分</button>
+
     </view>
     <onlineChat />
     <phone />

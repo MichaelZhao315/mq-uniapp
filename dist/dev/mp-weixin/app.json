@@ -43,5 +43,13 @@
       }
     ]
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "是否导航"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
   "usingComponents": {}
 }

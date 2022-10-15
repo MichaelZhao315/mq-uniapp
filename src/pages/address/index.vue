@@ -18,8 +18,12 @@
       <view class="name" @click="call('17521061937')">
         <image class="icon" src="@/static/images/support_2.png" />电话
       </view>
-      <view class="name" @click="handleShare">
-        <image class="icon" src="@/static/images/share.png" />分享
+      <view class="name sharebox" @click="handleShare">
+        <button open-type="share" class="shareBtn">分享</button>
+        <view class="shareText">
+          <image class="icon " src="@/static/images/share.png" />
+          分享
+        </view>
       </view>
     </view>
     <onlineChat />
@@ -30,6 +34,12 @@
 <script setup lang="ts">
 import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
+import { reactive, toRefs } from 'vue'
+const state = reactive({
+  latitude: 39.909,
+  longitude: 116.39742,
+})
+const { latitude, longitude } = toRefs(state)
 function call(phone: string) {
   const res = uni.getSystemInfoSync();
   uni.makePhoneCall({
@@ -72,7 +82,10 @@ function handleLocation() {
         success: function () {
           console.log('success');
         }
-      });
+      })
+    },
+    fail: function (err) {
+      console.log(err)
     }
   });
 }
@@ -112,6 +125,24 @@ function handleShare() {
   height: 420rpx;
   border-radius: 16rpx 16rpx 0 0;
   display: inline-block;
+}
+
+.sharebox {
+  position: relative;
+}
+
+.shareBtn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120rpx;
+  opacity: 0;
+}
+
+.shareText {
+
+  width: 120rpx;
+
 }
 
 .detail {

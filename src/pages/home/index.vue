@@ -2,7 +2,10 @@
   <view class="content">
     <!-- head -->
     <view class="headContent">
+      <image src="@/static/images/top_bg_shanghai.png" class="bgimg" />
       <image src="@/static/images/top_bg_mask.png" class="bgimg" />
+      <uni-nav-bar title="名企—上海落户通" color="white" :border="false" backgroundColor="transparent" class="navbar">
+      </uni-nav-bar>
       <view class="search">
         <uni-search-bar class="uni-mt-10" radius="100" placeholder="输入搜索内容" clearButton="none" cancelButton="none"
           @confirm="search" />
@@ -103,9 +106,24 @@ const state: {
   ]
 });
 const { active, newList } = toRefs(state);
+// 获取状态栏高度
+// const {
+//   statusBarHeight,
+// } = wx.getSystemInfoSync()
+// //获取胶囊信息
+// const {
+//   top,
+//   height
+// } = wx.getMenuButtonBoundingClientRect()
+// // 自定义导航栏的到顶部距离 = 状态栏高度
+// wx.setStorageSync('navigationBarTop', statusBarHeight)
+// // 自定义导航栏高度 = 胶囊高度 + 胶囊的padding*2。如果获取不到设置为38
+// wx.setStorageSync('navigationBarHeight', height ? height + (top - statusBarHeight) * 2 : 38)
+
 function handleChange(val: number) {
   state.active = val
 }
+
 function search() {
 
 }
@@ -115,7 +133,7 @@ function search() {
 
 <style lang="scss" scoped>
 .headContent {
-  background: url('../../static/images/top_bg_shanghai.png') no-repeat top center;
+  // background: url('../../static/images/top_bg_shanghai.png') no-repeat top center;
   width: 100%;
   height: 700rpx;
   background-size: 100%;
@@ -123,6 +141,17 @@ function search() {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .navbar {
+    font-family: MicrosoftYaHei;
+    font-size: 32rpx;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    font-weight: 400;
+    position: relative;
+    margin-top: 32rpx;
+  }
 
   .bgimg {
     position: absolute;
@@ -133,8 +162,8 @@ function search() {
   }
 
   .search {
-    margin: 28rpx 0 140rpx 0;
-    position: absolute;
+    margin: 0 0 140rpx 0;
+    position: relative;
     z-index: 2;
     width: 652rpx;
   }
@@ -153,7 +182,7 @@ function search() {
   justify-content: space-between;
   width: 652rpx;
   background: white;
-  margin: 0 auto;
+  margin: 130rpx auto 0 auto;
   border-radius: 30px;
   padding: 40rpx;
   box-sizing: border-box;

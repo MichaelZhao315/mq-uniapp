@@ -17,7 +17,7 @@ function call(phone: string) {
     height: 120rpx;
     position: fixed;
     right: 0;
-    top: 900rpx;
+    bottom: 200rpx;
     z-index: 3;
 }
 </style>

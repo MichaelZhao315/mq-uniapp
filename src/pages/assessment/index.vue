@@ -11,7 +11,7 @@
         <uni-forms-item>
           <view class="title">二、性别</view>
           <view class="uni-list">
-            <radio-group @change="radioChange1('gender',$event)">
+            <radio-group @change="radioChange('gender',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">男</text>
@@ -30,7 +30,7 @@
         <uni-forms-item>
           <view class="title">三、文化程度</view>
           <view class="uni-list">
-            <radio-group @change="radioChange1('wenhua',$event)">
+            <radio-group @change="radioChange('wenhua',$event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -43,7 +43,7 @@
         <uni-forms-item>
           <view class="title">四、学位</view>
           <view class="uni-list">
-            <radio-group @change="radioChange1('xuewei',$event)">
+            <radio-group @change="radioChange('xuewei',$event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -60,7 +60,7 @@
         <uni-forms-item>
           <view class="title">六、公司是否是高新企业或重点金融企业</view>
           <view class="uni-list">
-            <radio-group @change="radioChange1('zhuanye',$event)">
+            <radio-group @change="radioChange('zhuanye',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">是</text>
@@ -85,7 +85,7 @@
         <uni-forms-item>
           <view class="title">八、有无中高级职称/技能资格证书</view>
           <view class="uni-list">
-            <radio-group @change="radioChange1('zhengshu',$event)">
+            <radio-group @change="radioChange('zhengshu',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">有</text>
@@ -243,7 +243,7 @@ let state: {
   ]
 });
 const { baseFormData, items, item2, } = toRefs(state);
-function radioChange1(key: string, evt: { detail: { value: string; }; }) {
+function radioChange(key: string, evt: { detail: { value: string; }; }) {
   state.baseFormData[key] = evt.detail.value
 }
 
@@ -259,8 +259,6 @@ function handleSubmit() {
   margin: 80rpx auto;
   display: block;
 }
-
-
 
 .headtitle {
   font-family: PingFangSC-Regular;
@@ -325,9 +323,6 @@ function handleSubmit() {
     font-weight: 400;
     margin: 60rpx 0 40rpx 0;
   }
-
-
-
   .app1 {
     width: 458rpx;
     height: 174rpx;

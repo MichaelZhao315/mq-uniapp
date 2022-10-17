@@ -136,13 +136,15 @@ function handleShare() {
   left: 0;
   top: 0;
   width: 120rpx;
+  height: 45rpx;
   opacity: 0;
 }
 
 .shareText {
-
+  height: 45rpx;
   width: 120rpx;
-
+  display: flex;
+  align-items: center;
 }
 
 .detail {

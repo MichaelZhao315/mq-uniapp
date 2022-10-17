@@ -15,7 +15,7 @@ import { ref } from 'vue'
     height: 120rpx;
     position: fixed;
     right: 0;
-    top: 750rpx;
+    bottom: 350rpx;
     display: block;
     z-index: 3;
 }

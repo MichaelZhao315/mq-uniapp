@@ -1,13 +1,13 @@
 <template>
   <view class="content">
     <view class="wrap">
-      <image class="addressImg" src="@/static/images/pic.jpeg" />
+      <image class="addressImg" :src="address.companyPicUrl" />
       <view class="detail">
         <image class="icon" src="@/static/images/company.png" />
         <view class="right">
-          <text class="word">浦东新区人才交流中心</text>
-          <text class="time">工作日：8:00～17：00</text>
-          <text class="word">上海市浦东新区环科路999弄浦东国际人才港1号楼一楼受理大厅</text>
+          <text class="word">{{address.companyName}}</text>
+          <text class="time">{{`工作日：${address.workBeginTime}～${address.workEndTime}`}}</text>
+          <text class="word">{{address.companyAddress}}</text>
         </view>
       </view>
     </view>
@@ -15,7 +15,7 @@
       <view class="name" @click="handleLocation">
         <image class="icon" src="@/static/images/tag.png" />路线
       </view>
-      <view class="name" @click="call('17521061937')">
+      <view class="name" @click="call(address.phoneno)">
         <image class="icon" src="@/static/images/support_2.png" />电话
       </view>
       <view class="name sharebox" @click="handleShare">
@@ -34,12 +34,59 @@
 <script setup lang="ts">
 import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
+import { mqCompanyAddress } from "@/api/index";
 import { reactive, toRefs } from 'vue'
-const state = reactive({
+
+const state: {
+  latitude: number,
+  longitude: number,
+  address: {
+    companyAddress: string,
+    companyName: string,
+    companyPicUrl: string,
+    createBy: string,
+    createTime: string,
+    id: string,
+    incharge: string,
+    phoneno: string,
+    sysOrgCode: string,
+    updateBy: string,
+    updateTime: string,
+    workBeginTime: string,
+    workDayType: string,
+    workEndTime: string
+  },
+} = reactive({
   latitude: 39.909,
   longitude: 116.39742,
+  address: {
+    companyAddress: '',
+    companyName: '',
+    companyPicUrl: '',
+    createBy: '',
+    createTime: '',
+    id: '',
+    incharge: '',
+    phoneno: '',
+    sysOrgCode: '',
+    updateBy: '',
+    updateTime: '',
+    workBeginTime: '',
+    workDayType: '',
+    workEndTime: ''
+  }
 })
-const { latitude, longitude } = toRefs(state)
+
+const { address } = toRefs(state)
+
+async function getLocationFn() {
+  const res = await mqCompanyAddress()
+  if (res.code == 200) {
+    state.address = res.result[0]
+  }
+}
+getLocationFn()
+
 function call(phone: string) {
   const res = uni.getSystemInfoSync();
   uni.makePhoneCall({
@@ -70,12 +117,13 @@ function call(phone: string) {
     })
   }
 }
+
 function handleLocation() {
   uni.getLocation({
     type: 'gcj02', //返回可以用于uni.openLocation的经纬度
     success: function (res) {
-      const latitude = res.latitude;
-      const longitude = res.longitude;
+      const latitude = state.latitude;
+      const longitude = state.longitude;
       uni.openLocation({
         latitude: latitude,
         longitude: longitude,

@@ -2,8 +2,15 @@
   <view class="content">
     <!-- head -->
     <view class="headContent">
-      <image src="@/static/images/top_bg_shanghai.png" class="bgimg" />
-      <image src="@/static/images/top_bg_mask.png" class="bgimg" />
+      <!-- <image src="@/static/images/top_bg_shanghai.png" class="bgimg" />
+      <image src="@/static/images/top_bg_mask.png" class="bgimg" /> -->
+      <swiper class="swiper bgimg" circular :indicator-dots="true" :autoplay="true" :interval="2000" :duration="500">
+        <swiper-item v-for="item in banner" :key="item.id">
+          <view class="swiper-item uni-bg-red">
+            <image :src="item.mobileImgUrl" />
+          </view>
+        </swiper-item>
+      </swiper>
       <uni-nav-bar title="名企—上海落户通" color="white" :border="false" backgroundColor="transparent" class="navbar">
       </uni-nav-bar>
       <view class="search">
@@ -11,29 +18,10 @@
           @confirm="search" />
       </view>
       <view class="itemWrap">
-        <view :class="`item ${active==0&&'active'}`" @click="handleChange(0)">
-          <image src="@/static/images/jzzjf.png" class="imgtag" />
-          <text class="tagname">居住证积分</text>
-        </view>
-        <view :class="`item ${active==1&&'active'}`" @click="handleChange(1)">
-          <image src="@/static/images/jzh.png" class="imgtag" />
-          <text class="tagname">居转户</text>
-        </view>
-        <view :class="`item ${active==2&&'active'}`" @click="handleChange(2)">
-          <image src="@/static/images/rcyj.png" class="imgtag" />
-          <text class="tagname">人才引进</text>
-        </view>
-        <view :class="`item ${active==3&&'active'}`" @click="handleChange(3)">
-          <image src="@/static/images/lhtk.png" class="imgtag" />
-          <text class="tagname">投靠落户</text>
-        </view>
-        <view :class="`item ${active==4&&'active'}`" @click="handleChange(4)">
-          <image src="@/static/images/lxs.png" class="imgtag" />
-          <text class="tagname">留学生</text>
-        </view>
-        <view :class="`item ${active==5&&'active'}`" @click="handleChange(5)">
-          <image src="@/static/images/alfx.png" class="imgtag" />
-          <text class="tagname">案例分享</text>
+        <view :class="`item ${active==index&&'active'}`" @click="handleChange(index)" v-for="(item,index) in newType"
+          :key="item.id">
+          <image :src="(item.typeLink+item.typeIcon)" class="imgtag" />
+          <text class="tagname">{{item.typeName}}</text>
         </view>
       </view>
     </view>
@@ -41,13 +29,13 @@
       <!-- 第一条 -->
       <template v-if="newList.length>0">
         <view class="list1">
-          <image class="img" src="@/static/images/pic.jpeg" />
-          <text class="title">{{newList[0].title}}</text>
+          <image class="img" :src="newList[0].infoPicUrl" />
+          <text class="title">{{newList[0].titile}}</text>
           <view class="time">
             <text>
-              <image src="@/static/images/view.png" class="view" /> {{newList[0].readNum}}
+              <image src="@/static/images/view.png" class="view" /> {{newList[0].readingAmount}}
             </text>
-            <text>{{newList[0].time}}</text>
+            <text>{{newList[0].updateTime}}</text>
           </view>
         </view>
       </template>
@@ -55,15 +43,15 @@
       <template v-if="newList.length>1">
         <view class="list" v-for="list in newList" :key="list.id">
           <view class="left">
-            <text class="title">{{list.title}}</text>
+            <text class="title">{{list.titile}}</text>
             <view class="time">
               <text class="num">
-                <image src="@/static/images/view.png" class="view" /> {{list.readNum}}
+                <image src="@/static/images/view.png" class="view" /> {{list.readingAmount}}
               </text>
-              <text>{{list.time}}</text>
+              <text>{{list.updateTime}}</text>
             </view>
           </view>
-          <image class="rightImg" src="@/static/images/pic.jpeg" />
+          <image class="rightImg" :src="newList[0].infoPicUrl" />
         </view>
       </template>
     </view>
@@ -74,38 +62,62 @@
 
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
+import { getBanner, getNewsType, getNewsInfo } from "@/api/index";
 import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
+
 const state: {
   active: number,
-  newList: Array<any>
+  newList: Array<any>,
+  newType: Array<any>,
+  banner: Array<any>,
+
 } = reactive({
   // 响应式数据
   active: 0,
-  newList: [{
-    id: 12,
-    title: "1上海落户的排队时怎么个排法？ 分数线时社保和个税吗？",
-    readNum: 1,
-    time: "2022-12-2",
-    img: "@/static/images/pic.jpeg"
-  },
-  {
-    id: 13,
-    title: "2上海落户的排队时怎么个排法？ 分数线时社保和个税吗？",
-    readNum: 123,
-    time: "2022-12-2",
-    img: "@/static/images/pic.jpeg"
-  },
-  {
-    id: 14,
-    title: "3上海落户的排队时怎么个排法？ 分数线时社保和个税吗？",
-    readNum: 311,
-    time: "2022-12-2",
-    img: "@/static/images/pic.jpeg"
-  }
-  ]
+  newList: [],
+  newType: [],
+  banner: [],
+
 });
-const { active, newList } = toRefs(state);
+const { active, newList, newType, banner } = toRefs(state);
+
+//tabs接口
+async function getTabsListFn() {
+  const res = await getNewsType()
+  if (res.code == 200) {
+    state.newType = res.result
+  }
+}
+getTabsListFn()
+
+//banner图
+async function getBannerFn() {
+  const res = await getBanner()
+  if (res.code == 200) {
+    state.banner = res.result
+  }
+}
+getBannerFn()
+
+//资讯
+async function getNewsFn() {
+  const res = await getNewsInfo()
+  if (res.code == 200) {
+    state.newList = res.result.records
+  }
+}
+getNewsFn()
+
+
+
+function handleChange(val: number) {
+  state.active = val
+}
+
+function search() {
+
+}
 // 获取状态栏高度
 // const {
 //   statusBarHeight,
@@ -119,15 +131,6 @@ const { active, newList } = toRefs(state);
 // wx.setStorageSync('navigationBarTop', statusBarHeight)
 // // 自定义导航栏高度 = 胶囊高度 + 胶囊的padding*2。如果获取不到设置为38
 // wx.setStorageSync('navigationBarHeight', height ? height + (top - statusBarHeight) * 2 : 38)
-
-function handleChange(val: number) {
-  state.active = val
-}
-
-function search() {
-
-}
-
 </script>
 
 

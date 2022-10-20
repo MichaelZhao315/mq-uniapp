@@ -12,7 +12,7 @@ export function getNewsType() {
         method: 'get',
     });
 }
-export function getNewsInfo(data: object = {}) {
+export function getNewsInfo(data: object) {
     return request({
         url: '/mq/mqbiz/mqInfo/outside/list',
         method: 'get',
@@ -23,5 +23,12 @@ export function mqCompanyAddress() {
     return request({
         url: '/mq/mqbiz/mqCompanyAddress/outside/list',
         method: 'get',
+    });
+}
+export function queryById(data: object) {
+    return request({
+        url: '/mq/mqbiz/mqInfo/outside/queryById',
+        method: 'get',
+        data
     });
 }

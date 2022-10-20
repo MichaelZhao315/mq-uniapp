@@ -18,9 +18,9 @@
           @confirm="search" />
       </view>
       <view class="itemWrap">
-        <view :class="`item ${active==index&&'active'}`" @click="handleChange(index)" v-for="(item,index) in newType"
-          :key="item.id">
-          <image :src="(item.typeLink+item.typeIcon)" class="imgtag" />
+        <view :class="`item ${active==index&&'active'}`" @click="handleChange(index,item.id)"
+          v-for="(item,index) in newType" :key="item.id">
+          <image :src="(item.typeLink+'/'+item.typeIcon)" class="imgtag" />
           <text class="tagname">{{item.typeName}}</text>
         </view>
       </view>
@@ -28,32 +28,33 @@
     <view class="listcontent">
       <!-- 第一条 -->
       <template v-if="newList.length>0">
-        <view class="list1">
+        <view class="list1" @click="toDetailFun(newList[0].id)">
           <image class="img" :src="newList[0].infoPicUrl" />
           <text class="title">{{newList[0].titile}}</text>
           <view class="time">
             <text>
               <image src="@/static/images/view.png" class="view" /> {{newList[0].readingAmount}}
             </text>
-            <text>{{newList[0].updateTime}}</text>
+            <text>{{newList[0].createTime}}</text>
           </view>
         </view>
       </template>
       <!-- 第+1条 -->
       <template v-if="newList.length>1">
-        <view class="list" v-for="list in newList" :key="list.id">
+        <view class="list" v-for="list in newList" :key="list.id" @click="toDetailFun(list.id)">
           <view class="left">
             <text class="title">{{list.titile}}</text>
             <view class="time">
               <text class="num">
                 <image src="@/static/images/view.png" class="view" /> {{list.readingAmount}}
               </text>
-              <text>{{list.updateTime}}</text>
+              <text>{{list.createTime}}</text>
             </view>
           </view>
           <image class="rightImg" :src="newList[0].infoPicUrl" />
         </view>
       </template>
+      <uni-load-more :status="load" :class="newList.length<=0&&'load'"></uni-load-more>
     </view>
     <onlineChat />
     <phone />
@@ -62,7 +63,11 @@
 
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
+import {
+  onReachBottom, onReady
+} from '@dcloudio/uni-app';
 import { getBanner, getNewsType, getNewsInfo } from "@/api/index";
+import { resultDataInterface } from './index';
 import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
 
@@ -71,26 +76,82 @@ const state: {
   newList: Array<any>,
   newType: Array<any>,
   banner: Array<any>,
-
+  infoType: string,
+  load: string,
+  content: string,
+  page: {
+    pageSize: number,
+    pageNum: number,
+    total: number,
+  },
 } = reactive({
   // 响应式数据
   active: 0,
+  infoType: '',
   newList: [],
   newType: [],
   banner: [],
+  load: "nomore",
+  content: "",
+  page: {
+    pageSize: 10,
+    pageNum: 1,
+    total: 0,
+  },
 
 });
-const { active, newList, newType, banner } = toRefs(state);
+const { active, newList, newType, banner, load } = toRefs(state);
 
-//tabs接口
+onReady(() => {
+  getTabsListFn()
+  getBannerFn()
+})
+
+onReachBottom(() => {
+  state.page.pageNum++;
+  let data = {
+    infoType: state.infoType,
+    infoContent: state.content ? state.content : ""
+  }
+  state.load = "loading";
+  getNewsInfo(data).then((res: resultDataInterface) => {
+    if (res.code == 200) {
+      state.newList = [...state.newList, ...res.result.records];
+      state.page.total = res.result.total;
+      res.result.current >= res.result.pages
+        ? (state.load = "nomore")
+        : (state.load = "more");
+    }
+  });
+})
+
+function toDetailFun(id: string): void {
+  uni.navigateTo({
+    url: '/pages/newDetail/index?id=' + id
+  });
+}
+
+//获取分类
 async function getTabsListFn() {
   const res = await getNewsType()
   if (res.code == 200) {
     state.newType = res.result
+    const data = {
+      infoType: res.result[0].id,
+      infoContent: ""
+    }
+    getNewsFn(data)
   }
 }
-getTabsListFn()
 
+
+//获取资讯
+async function getNewsFn(data: object) {
+  const res = await getNewsInfo(data)
+  if (res.code == 200) {
+    state.newList = res.result.records
+  }
+}
 //banner图
 async function getBannerFn() {
   const res = await getBanner()
@@ -98,45 +159,34 @@ async function getBannerFn() {
     state.banner = res.result
   }
 }
-getBannerFn()
 
-//资讯
-async function getNewsFn() {
-  const res = await getNewsInfo()
-  if (res.code == 200) {
-    state.newList = res.result.records
+
+//搜索
+function search(res: { value: any; }) {
+  state.content = res.value
+  const data = {
+    infoContent: res.value,
+    infoType: ""
   }
+  getNewsFn(data)
 }
-getNewsFn()
 
-
-
-function handleChange(val: number) {
+//切换分类
+function handleChange(val: number, infoType: string) {
   state.active = val
+  state.infoType = infoType
+  const data = {
+    infoType: infoType,
+    infoContent: ""
+  }
+  getNewsFn(data)
 }
 
-function search() {
 
-}
-// 获取状态栏高度
-// const {
-//   statusBarHeight,
-// } = wx.getSystemInfoSync()
-// //获取胶囊信息
-// const {
-//   top,
-//   height
-// } = wx.getMenuButtonBoundingClientRect()
-// // 自定义导航栏的到顶部距离 = 状态栏高度
-// wx.setStorageSync('navigationBarTop', statusBarHeight)
-// // 自定义导航栏高度 = 胶囊高度 + 胶囊的padding*2。如果获取不到设置为38
-// wx.setStorageSync('navigationBarHeight', height ? height + (top - statusBarHeight) * 2 : 38)
 </script>
-
 
 <style lang="scss" scoped>
 .headContent {
-  // background: url('../../static/images/top_bg_shanghai.png') no-repeat top center;
   width: 100%;
   height: 700rpx;
   background-size: 100%;
@@ -178,6 +228,9 @@ function search() {
   margin-right: 4rpx;
 }
 
+.load {
+  margin-top: 70rpx;
+}
 
 .itemWrap {
   display: flex;
@@ -259,8 +312,6 @@ function search() {
     justify-content: space-between;
   }
 }
-
-
 
 .list {
   display: flex;

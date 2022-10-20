@@ -44,14 +44,14 @@
             <radio-group @change="radioChange('jinji',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">是</text>
-                  <radio value="30" />
+                  <text class="radioName">否</text>
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">否</text>
-                  <radio value="0" />
+                  <text class="radioName">是</text>
+                  <radio :value="30" />
                 </view>
               </label>
             </radio-group>
@@ -64,22 +64,30 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
-                  <radio value="0" />
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">在沪投资三年纳税三千万 </text>
-                  <radio value="0" />
+                  <text class="radioName">最近连续3年平均每年纳税额在10万元人民币及以上 </text>
+                  <radio :value="1" />
                 </view>
               </label>
+              <view v-if="baseFormData.nashui==1">纳税金额(单位：万)
+                <uni-easyinput v-model="baseFormData.nashuiNum1" placeholder="请输入纳税金额" class="inputText"
+                  type=”number“ />
+              </view>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">在沪投资比例100%，社保人数100人以上</text>
-                  <radio value="0" />
+                  <text class="radioName">最近连续3年平均每年聘用本市户籍人员10人及以上</text>
+                  <radio :value="2" />
                 </view>
               </label>
             </radio-group>
+            <view v-if="baseFormData.nashui==2">聘用人数：
+              <uni-easyinput v-model="baseFormData.nashuiNum2" placeholder="请输入聘用上海户籍人数" class="inputText"
+                type=”number“ />
+            </view>
           </view>
         </uni-forms-item>
         <uni-forms-item>
@@ -103,17 +111,19 @@
             <radio-group @change="radioChange('huanwei',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">是</text>
-                  <radio value="1" />
+                  <text class="radioName">否</text>
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">否</text>
-                  <radio value="2" />
+                  <text class="radioName">是</text>
+                  <radio :value="1" />
                 </view>
               </label>
             </radio-group>
+            <uni-easyinput v-model="baseFormData.huanweiNum" placeholder="请输入年限" class="inputText" type="number"
+              v-if="baseFormData.huanwei" />
           </view>
         </uni-forms-item>
         <uni-forms-item>
@@ -122,17 +132,20 @@
             <radio-group @change="radioChange('yuanjiao',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">是</text>
-                  <radio value="1" />
+                  <text class="radioName">否</text>
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">否</text>
-                  <radio value="2" />
+                  <text class="radioName">是</text>
+                  <radio :value="1" />
                 </view>
               </label>
             </radio-group>
+            <uni-easyinput v-model="baseFormData.yuanjiaoNum" placeholder="请输入居住年限" class="inputText" type="number"
+              v-if="baseFormData.yuanjiao" />
+
           </view>
         </uni-forms-item>
         <uni-forms-item>
@@ -141,14 +154,14 @@
             <radio-group @change="radioChange('daxue',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">是</text>
-                  <radio value="10" />
+                  <text class="radioName">否</text>
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">否</text>
-                  <radio value="0" />
+                  <text class="radioName">是</text>
+                  <radio :value="10" />
                 </view>
               </label>
             </radio-group>
@@ -171,19 +184,22 @@
           <view class="title">十二、配偶为本地户籍人员</view>
           <view class="uni-list">
             <radio-group @change="radioChange('peiou',$event)">
-              <label class="uni-list-cell uni-list-cell-pd">
-                <view class="radioTag">
-                  <text class="radioName">是</text>
-                  <radio value="1" />
-                </view>
-              </label>
+
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
-                  <radio value="2" />
+                  <radio :value="0" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">是</text>
+                  <radio :value="1" />
                 </view>
               </label>
             </radio-group>
+            <uni-easyinput v-model="baseFormData.peiouNum" placeholder="请输入结婚年限" class="inputText" type="number"
+              v-if="baseFormData.peiou" />
           </view>
         </uni-forms-item>
         <uni-forms-item>
@@ -193,19 +209,19 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
-                  <radio value="0" />
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">一次</text>
-                  <radio value="-150" />
+                  <radio :value="-150" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">两次</text>
-                  <radio value="-300" />
+                  <radio :value="-300" />
                 </view>
               </label>
             </radio-group>
@@ -218,19 +234,19 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
-                  <radio value="0" />
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">一次</text>
-                  <radio value="-50" />
+                  <radio :value="-50" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">两次</text>
-                  <radio value="-100" />
+                  <radio :value="-100" />
                 </view>
               </label>
             </radio-group>
@@ -243,19 +259,19 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
-                  <radio value="0" />
+                  <radio :value="0" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">一次</text>
-                  <radio value="-150" />
+                  <radio :value="-150" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">两次</text>
-                  <radio value="-300" />
+                  <radio :value="-300" />
                 </view>
               </label>
             </radio-group>
@@ -293,7 +309,11 @@ let state: {
     xujia: number,
     juliu: number,
     fanzui: number,
+    huanweiNum: number,
+    yuanjiaoNum: number,
+    peiouNum: number,
     [propName: string]: number;
+    [propName: number]: number;
   },
   current: number,
   items: Array<any>,
@@ -318,6 +338,9 @@ let state: {
     xujia: 0,
     juliu: 0,
     fanzui: 0,
+    huanweiNum: 0,
+    yuanjiaoNum: 0,
+    peiouNum: 0
   },
   current: 0,
   items: [{
@@ -381,20 +404,17 @@ let state: {
     },
     {
       value: 25,
-      name: '高于等于80%低于1倍'
+      name: '上年社平80%<=基数<上年社平'
     },
     {
       value: 50,
-      name: '高于等于1倍低于2倍'
+      name: '上年社平<=基数<上年社平2倍'
     },
     {
       value: 100,
-      name: '高于等于2倍低于3倍'
+      name: '基数>=上年社平2倍'
     },
-    {
-      value: 100,
-      name: '最近3年累计24月高于等于3倍'
-    },
+
   ],
   item4: [
     {
@@ -422,22 +442,63 @@ function radioChange(key: string, evt: { detail: { value: number; }; }) {
 }
 function handleSubmit() {
 
-  let summary = 0
-  Object.values(state.baseFormData).map(val => {
-    summary += parseInt(val)
-  })
+  var summary = 0
+  const age = state.baseFormData.age
+  const jiaoyu = state.baseFormData['jiaoyu']
+  const zhicheng = state.baseFormData['zhicheng']
+  const year = state.baseFormData['year']
+  const huanwei = state.baseFormData['huanwei']
+  const huanweiNum = state.baseFormData['huanweiNum']
+  const yuanjiao = state.baseFormData['yuanjiao']
+  const yuanjiaoNum = state.baseFormData['yuanjiaoNum']
+  const peiou = state.baseFormData['peiou']
+  const peiouNum = state.baseFormData['peiouNum']
+  const nashui = state.baseFormData['nashui']
+  const nashuiNum1 = state.baseFormData['nashuiNum1']
+  const nashuiNum2 = state.baseFormData['nashuiNum2']
+
+  var age_score: number = 0, huanwei_score: number = 0, yuanjiao_score: number = 0,
+    peiou_score: number = 0, nashui_score: number = 0
+
+  if (age <= 60) {
+    if (age >= 56) {
+      age_score = 5
+    } else {
+      age_score = (56 - age) * 2 > 30 ? 30 : (56 - age) * 2
+    }
+  }
+  var jiaoyu_zhicheng_score = jiaoyu > zhicheng ? jiaoyu : zhicheng
+  var year_score = year * 3
+  if (huanwei == 1 && huanweiNum >= 5) {
+    huanwei_score = huanweiNum * 4
+  }
+  if (yuanjiao == 1 && yuanjiaoNum >= 5) {
+    yuanjiao_score = yuanjiaoNum * 2 > 20 ? 20 : yuanjiaoNum * 2
+  }
+  if (peiou == 1) {
+    peiou_score = peiouNum * 4 > 40 ? 40 : peiouNum * 4
+  }
+  if (nashui !== 0) {
+    var nashuiScore1 = nashuiNum1 ? (Math.floor(nashuiNum1 / 10) * 10 > 100 ? 100 : Math.floor(nashuiNum1 / 10) * 10) : 0
+    var nashuiScore2 = nashuiNum2 ? (Math.floor(nashuiNum2 / 10) * 10 > 100 ? 100 : Math.floor(nashuiNum2 / 10) * 10) : 0
+    nashui_score = nashuiScore1 > nashuiScore2 ? nashuiScore1 : nashuiScore2
+  }
+
+  summary = age_score + jiaoyu_zhicheng_score + year_score + nashui_score + yuanjiao_score + huanwei_score + peiou_score + state.baseFormData['jinji'] +
+    state.baseFormData['shebao'] + state.baseFormData['daxue'] + state.baseFormData['jiangli'] + state.baseFormData['xujia'] + state.baseFormData['juliu'] +
+    state.baseFormData['fanzui']
+
   uni.showModal({
     title: '提示',
     content: '总数为' + summary,
     success: function (res) {
       if (res.confirm) {
-        console.log('用户点击确定');
+        console.log(summary, '用户点击确定');
       } else if (res.cancel) {
         console.log('用户点击取消');
       }
     }
   });
-  console.log(state.baseFormData, summary, 'baseFormData')
 }
 
 </script>

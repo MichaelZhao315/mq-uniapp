@@ -61,7 +61,7 @@
         "appid" : "wxa4c6732b0dda40ed",
         "setting" : {
             "urlCheck" : false,
-            "minified" : true,
+            "minified" : false,
             "es6" : false
         },
         "usingComponents" : true,
@@ -70,7 +70,10 @@
                 "desc" : "是否允许导航？"
             }
         },
-        "requiredPrivateInfos" : [ "getLocation" ]
+        "requiredPrivateInfos" : [ "getLocation" ],
+        "unipush" : {
+            "enable" : true
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

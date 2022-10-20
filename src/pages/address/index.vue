@@ -57,8 +57,8 @@ const state: {
     workEndTime: string
   },
 } = reactive({
-  latitude: 39.909,
-  longitude: 116.39742,
+  latitude: 31.22249,
+  longitude: 121.5447,
   address: {
     companyAddress: '',
     companyName: '',

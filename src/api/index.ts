@@ -32,3 +32,10 @@ export function queryById(data: object) {
         data
     });
 }
+export function addInfo(data: object) {
+    return request({
+        url: '/mq/mqbiz/mqSettlementEvaluation/outside/add',
+        method: 'post',
+        data
+    });
+}

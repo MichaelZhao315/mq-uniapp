@@ -6,12 +6,12 @@
       <uni-forms ref="baseForm" :modelValue="baseFormData">
         <uni-forms-item>
           <view class="title">一、您的姓名</view>
-          <uni-easyinput v-model="baseFormData.name" placeholder="请输入姓名" class="inputText" />
+          <uni-easyinput v-model="baseFormData.realName" placeholder="请输入姓名" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">二、性别</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('gender',$event)">
+            <radio-group @change="radioChange('sex',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">男</text>
@@ -30,7 +30,7 @@
         <uni-forms-item>
           <view class="title">三、文化程度</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('wenhua',$event)">
+            <radio-group @change="radioChange('educationLevel',$event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -43,7 +43,7 @@
         <uni-forms-item>
           <view class="title">四、学位</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('xuewei',$event)">
+            <radio-group @change="radioChange('ademicDegree',$event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
                   <text class="radioName">{{item.name}}</text>
@@ -55,12 +55,12 @@
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">五、所学专业</view>
-          <uni-easyinput v-model="baseFormData.zhuanye" placeholder="填写大专以上专业" class="inputText" />
+          <uni-easyinput v-model="baseFormData.major" placeholder="填写大专以上专业" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">六、公司是否是高新企业或重点金融企业</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('zhuanye',$event)">
+            <radio-group @change="radioChange('companyType',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">是</text>
@@ -79,13 +79,13 @@
         <uni-forms-item>
           <view class="title">七、何时入职</view>
           <view class="example-body">
-            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.time" />
+            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.checkInDate" />
           </view>
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">八、有无中高级职称/技能资格证书</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('zhengshu',$event)">
+            <radio-group @change="radioChange('hasSeniorProfessionalTitle',$event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">有</text>
@@ -103,34 +103,34 @@
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">九、职称/技能全称</view>
-          <uni-easyinput v-model="baseFormData.skill" placeholder="请输入您的职称/技能全称" class="inputText" />
+          <uni-easyinput v-model="baseFormData.seniorProfessionalTitle" placeholder="请输入您的职称/技能全称" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十、居住证首次办证时间</view>
           <view class="example-body">
-            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.banzheng" />
+            <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.firstResidencePermitDate" />
           </view>
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十一、近四年上海社保缴纳的基数</view>
           <view class="title">例：2018年1月 - -至今</view>
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.year1" placeholder="填写近一年社保基数" />
+            <uni-easyinput v-model="baseFormData.socialSecurityFirstYears" placeholder="填写近一年社保基数" type="number" />
           </view>
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.year2" placeholder="填写近二年社保基数" />
+            <uni-easyinput v-model="baseFormData.socialSecuritySecondYears" placeholder="填写近二年社保基数" type="number" />
           </view>
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.year3" placeholder="填写近三年社保基数" />
+            <uni-easyinput v-model="baseFormData.socialSecurityThirdYears" placeholder="填写近三年社保基数" type="number" />
           </view>
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.year4" placeholder="填写近四年社保基数" />
+            <uni-easyinput v-model="baseFormData.socialSecurityForthYears" placeholder="填写近四年社保基数" type="number" />
           </view>
 
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十二、联系方式</view>
-          <uni-easyinput v-model="baseFormData.phone" placeholder="填写联系方式" class="inputText" type="number" />
+          <uni-easyinput v-model="baseFormData.contactTelephone" placeholder="填写联系方式" class="inputText" type="number" />
           <view class="title" style="text-align: right;margin-top: 5rpx;">之后会有老师联系您</view>
         </uni-forms-item>
         <uni-forms-item>
@@ -159,25 +159,26 @@
   
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
+import { addInfo } from "@/api/index";
 import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
 let state: {
   baseFormData: {
-    name: string,
-    gender: string,
-    wenhua: string,
-    xuewei: string,
-    zhuanye: string,
-    company: string,
-    zhengshu: string,
-    skill: string,
-    time: string,
-    banzheng: string,
-    year1: string,
-    year2: string,
-    year3: string,
-    year4: string,
-    phone: string,
+    realName: string,
+    sex: string,
+    educationLevel: string,
+    ademicDegree: string,
+    major: string,
+    companyType: string,
+    checkInDate: string,
+    hasSeniorProfessionalTitle: string,
+    seniorProfessionalTitle: string,
+    firstResidencePermitDate: string,
+    socialSecurityFirstYears: string,
+    socialSecuritySecondYears: string,
+    socialSecurityThirdYears: string,
+    socialSecurityForthYears: string,
+    contactTelephone: string,
     [propName: string]: string;
   },
   items: Array<any>,
@@ -185,21 +186,21 @@ let state: {
 } = reactive({
   // 响应式数据
   baseFormData: {
-    name: "",
-    gender: "",
-    wenhua: "",
-    xuewei: "",
-    zhuanye: "",
-    company: "",
-    zhengshu: "",
-    skill: "",
-    time: "",
-    banzheng: "",
-    year1: "",
-    year2: "",
-    year3: "",
-    year4: "",
-    phone: ""
+    realName: "",
+    sex: "",
+    educationLevel: "",
+    ademicDegree: "",
+    major: "",
+    companyType: "",
+    checkInDate: "",
+    hasSeniorProfessionalTitle: "",
+    seniorProfessionalTitle: "",
+    firstResidencePermitDate: "",
+    socialSecurityFirstYears: "",
+    socialSecuritySecondYears: "",
+    socialSecurityThirdYears: "",
+    socialSecurityForthYears: "",
+    contactTelephone: ""
   },
   items: [{
     value: '0',
@@ -248,6 +249,37 @@ function radioChange(key: string, evt: { detail: { value: string; }; }) {
 }
 
 function handleSubmit() {
+  addInfo(state.baseFormData).then(res => {
+    if (res.code == 200) {
+      uni.showModal({
+        title: '提示',
+        content: '信息提交成功！！',
+        success: function (res) {
+          if (res.confirm) {
+            state.baseFormData = {
+              realName: "",
+              sex: "",
+              educationLevel: "",
+              ademicDegree: "",
+              major: "",
+              companyType: "",
+              checkInDate: "",
+              hasSeniorProfessionalTitle: "",
+              seniorProfessionalTitle: "",
+              firstResidencePermitDate: "",
+              socialSecurityFirstYears: "",
+              socialSecuritySecondYears: "",
+              socialSecurityThirdYears: "",
+              socialSecurityForthYears: "",
+              contactTelephone: ""
+            }
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+        }
+      });
+    }
+  })
   console.log(state.baseFormData, 'baseFormData')
 }
 </script>
@@ -323,6 +355,7 @@ function handleSubmit() {
     font-weight: 400;
     margin: 60rpx 0 40rpx 0;
   }
+
   .app1 {
     width: 458rpx;
     height: 174rpx;

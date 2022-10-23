@@ -32,9 +32,9 @@
           <image class="img" :src="newList[0].infoPicUrl" />
           <text class="title">{{newList[0].titile}}</text>
           <view class="time">
-            <text>
+            <view>
               <image src="@/static/images/view.png" class="view" /> {{newList[0].readingAmount}}
-            </text>
+            </view>
             <text>{{newList[0].createTime}}</text>
           </view>
         </view>
@@ -45,9 +45,9 @@
           <view class="left">
             <text class="title">{{list.titile}}</text>
             <view class="time">
-              <text class="num">
+              <view class="num">
                 <image src="@/static/images/view.png" class="view" /> {{list.readingAmount}}
-              </text>
+              </view>
               <text>{{list.createTime}}</text>
             </view>
           </view>
@@ -56,7 +56,7 @@
       </template>
       <uni-load-more :status="load" :class="newList.length<=0&&'load'"></uni-load-more>
     </view>
-    <onlineChat />
+    <!-- <onlineChat /> -->
     <phone />
   </view>
 </template>
@@ -68,7 +68,7 @@ import {
 } from '@dcloudio/uni-app';
 import { getBanner, getNewsType, getNewsInfo } from "@/api/index";
 import { resultDataInterface } from './index';
-import onlineChat from "@/components/onlineChat.vue";
+// import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
 
 const state: {
@@ -105,8 +105,21 @@ const { active, newList, newType, banner, load } = toRefs(state);
 onReady(() => {
   getTabsListFn()
   getBannerFn()
-})
 
+})
+uni.login({
+  provider: 'weixin',
+  success: function (loginRes) {
+    console.log(loginRes.authResult);
+    // 获取用户信息
+    uni.getUserProfile({
+      provider: 'weixin',
+      success: function (infoRes) {
+        console.log('用户昵称为：' + infoRes.userInfo);
+      }
+    });
+  }
+});
 onReachBottom(() => {
   state.page.pageNum++;
   let data = {
@@ -116,11 +129,13 @@ onReachBottom(() => {
   state.load = "loading";
   getNewsInfo(data).then((res: resultDataInterface) => {
     if (res.code == 200) {
-      state.newList = [...state.newList, ...res.result.records];
       state.page.total = res.result.total;
-      res.result.current >= res.result.pages
-        ? (state.load = "nomore")
-        : (state.load = "more");
+      if (res.result.current >= res.result.pages) {
+        state.load = "nomore"
+      } else {
+        state.newList = [...state.newList, ...res.result.records];
+        state.load = "more"
+      }
     }
   });
 })
@@ -286,7 +301,7 @@ function handleChange(val: number, infoType: string) {
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-bottom: 1rpx solid rgba(198, 197, 197, 1);
+  border-bottom: 1rpx solid #ccc;
   padding: 10rpx 0;
 
   .title {
@@ -315,7 +330,7 @@ function handleChange(val: number, infoType: string) {
 
 .list {
   display: flex;
-  border-bottom: 1rpx solid rgba(198, 197, 197, 1);
+  border-bottom: 1rpx solid #ccc;
   padding: 10rpx 0;
   justify-content: space-between;
   width: 100%;

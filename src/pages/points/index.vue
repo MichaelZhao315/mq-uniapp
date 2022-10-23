@@ -36,7 +36,7 @@
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">四、社会保险年</view>
-          <uni-easyinput v-model="baseFormData.year" placeholder="请输入缴费年限，未缴填0" class="inputText" type=”number“ />
+          <uni-easyinput v-model="baseFormData.year" placeholder="请输入缴费年限，未缴填0" class="inputText" type="number" />
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">五、紧急急需专业</view>
@@ -74,8 +74,8 @@
                 </view>
               </label>
               <view v-if="baseFormData.nashui==1">纳税金额(单位：万)
-                <uni-easyinput v-model="baseFormData.nashuiNum1" placeholder="请输入纳税金额" class="inputText"
-                  type=”number“ />
+                <uni-easyinput v-model="baseFormData.nashuiNum1" placeholder="请输入纳税金额" class="inputText" type="number"
+                  style="margin-bottom: 10rpx;" />
               </view>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
@@ -86,7 +86,7 @@
             </radio-group>
             <view v-if="baseFormData.nashui==2">聘用人数：
               <uni-easyinput v-model="baseFormData.nashuiNum2" placeholder="请输入聘用上海户籍人数" class="inputText"
-                type=”number“ />
+                type="number" />
             </view>
           </view>
         </uni-forms-item>
@@ -122,8 +122,10 @@
                 </view>
               </label>
             </radio-group>
-            <uni-easyinput v-model="baseFormData.huanweiNum" placeholder="请输入年限" class="inputText" type="number"
-              v-if="baseFormData.huanwei" />
+            <view v-if="baseFormData.huanwei">
+              <text>工作年限</text>
+              <uni-easyinput v-model="baseFormData.huanweiNum" placeholder="请输入年限" class="inputText" type="number" />
+            </view>
           </view>
         </uni-forms-item>
         <uni-forms-item>
@@ -143,9 +145,10 @@
                 </view>
               </label>
             </radio-group>
-            <uni-easyinput v-model="baseFormData.yuanjiaoNum" placeholder="请输入居住年限" class="inputText" type="number"
-              v-if="baseFormData.yuanjiao" />
-
+            <view v-if="baseFormData.yuanjiao">
+              <text>居住年限</text>
+              <uni-easyinput v-model="baseFormData.yuanjiaoNum" placeholder="请输入居住年限" class="inputText" type="number" />
+            </view>
           </view>
         </uni-forms-item>
         <uni-forms-item>
@@ -198,8 +201,10 @@
                 </view>
               </label>
             </radio-group>
-            <uni-easyinput v-model="baseFormData.peiouNum" placeholder="请输入结婚年限" class="inputText" type="number"
-              v-if="baseFormData.peiou" />
+            <view v-if="baseFormData.peiou">
+              <text>结婚年限</text>
+              <uni-easyinput v-model="baseFormData.peiouNum" placeholder="请输入结婚年限" class="inputText" type="number" />
+            </view>
           </view>
         </uni-forms-item>
         <uni-forms-item>
@@ -281,16 +286,15 @@
           <button type="default" @click="handleSubmit" style="background:#007aff;color:white">计算积分</button>
         </uni-forms-item>
       </uni-forms>
-
     </view>
-    <onlineChat />
+    <!-- <onlineChat /> -->
     <phone />
   </view>
 </template>
   
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
-import onlineChat from "@/components/onlineChat.vue";
+// import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
 let state: {
   baseFormData: {
@@ -546,9 +550,7 @@ function handleSubmit() {
 }
 
 .inputText {
-
   width: 100%;
-
 }
 
 .radioName {

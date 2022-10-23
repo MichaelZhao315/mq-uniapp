@@ -6,8 +6,6 @@
 </template>
     
 <script setup lang="ts">
-import { ref } from 'vue'
-
 </script>
 <style lang="scss" scoped>
 .online {
@@ -23,7 +21,6 @@ import { ref } from 'vue'
 .contactbtn {
     opacity: 0;
     z-index: 4;
-    /* 设置成透明 */
 }
 </style>
   

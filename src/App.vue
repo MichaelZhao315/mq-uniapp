@@ -14,4 +14,12 @@ onHide(() => {
 page {
   background-color: #F8F9FA
 }
+
+.wx-checkbox-input-checked,
+.wx-radio-input-checked,
+.wx-switch-input-checked {
+  background-color: #007aff !important;
+  border-color: #007aff !important;
+  color: #fff !important;
+}
 </style>

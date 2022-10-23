@@ -152,7 +152,7 @@
         <view class="step">最后查看每年社保基数即可</view>
       </view>
     </view>
-    <onlineChat />
+    <!-- <onlineChat /> -->
     <phone />
   </view>
 </template>
@@ -160,7 +160,7 @@
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
 import { addInfo } from "@/api/index";
-import onlineChat from "@/components/onlineChat.vue";
+// import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
 let state: {
   baseFormData: {

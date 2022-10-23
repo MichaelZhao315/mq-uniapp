@@ -1,38 +1,40 @@
 <template>
-  <view class="content">
-    <view class="wrap">
-      <image class="addressImg" :src="address.companyPicUrl" />
-      <view class="detail">
-        <image class="icon" src="@/static/images/company.png" />
-        <view class="right">
-          <text class="word">{{address.companyName}}</text>
-          <text class="time">{{`工作日：${address.workBeginTime}～${address.workEndTime}`}}</text>
-          <text class="word">{{address.companyAddress}}</text>
+  <view>
+    <view class="content" v-for="item in address" :key="item.id">
+      <view class="wrap">
+        <image class="addressImg" :src="item.companyPicUrl" />
+        <view class="detail">
+          <image class="icon" src="@/static/images/company.png" />
+          <view class="right">
+            <text class="word">{{item.companyName}}</text>
+            <text class="time">{{`工作日：${item.workBeginTime}～${item.workEndTime}`}}</text>
+            <text class="word">{{item.companyAddress}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="item">
+        <view class="name" @click="handleLocation">
+          <image class="icon" src="@/static/images/tag.png" />路线
+        </view>
+        <view class="name" @click="call(item.phoneno)">
+          <image class="icon" src="@/static/images/support_2.png" />电话
+        </view>
+        <view class="name sharebox" @click="handleShare">
+          <button open-type="share" class="shareBtn">分享</button>
+          <view class="shareText">
+            <image class="icon " src="@/static/images/share.png" />
+            分享
+          </view>
         </view>
       </view>
     </view>
-    <view class="item">
-      <view class="name" @click="handleLocation">
-        <image class="icon" src="@/static/images/tag.png" />路线
-      </view>
-      <view class="name" @click="call(address.phoneno)">
-        <image class="icon" src="@/static/images/support_2.png" />电话
-      </view>
-      <view class="name sharebox" @click="handleShare">
-        <button open-type="share" class="shareBtn">分享</button>
-        <view class="shareText">
-          <image class="icon " src="@/static/images/share.png" />
-          分享
-        </view>
-      </view>
-    </view>
-    <onlineChat />
+    <!-- <onlineChat /> -->
     <phone />
   </view>
 </template>
   
 <script setup lang="ts">
-import onlineChat from "@/components/onlineChat.vue";
+// import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
 import { mqCompanyAddress } from "@/api/index";
 import { reactive, toRefs } from 'vue'
@@ -40,41 +42,11 @@ import { reactive, toRefs } from 'vue'
 const state: {
   latitude: number,
   longitude: number,
-  address: {
-    companyAddress: string,
-    companyName: string,
-    companyPicUrl: string,
-    createBy: string,
-    createTime: string,
-    id: string,
-    incharge: string,
-    phoneno: string,
-    sysOrgCode: string,
-    updateBy: string,
-    updateTime: string,
-    workBeginTime: string,
-    workDayType: string,
-    workEndTime: string
-  },
+  address: Array<any>,
 } = reactive({
   latitude: 31.22249,
   longitude: 121.5447,
-  address: {
-    companyAddress: '',
-    companyName: '',
-    companyPicUrl: '',
-    createBy: '',
-    createTime: '',
-    id: '',
-    incharge: '',
-    phoneno: '',
-    sysOrgCode: '',
-    updateBy: '',
-    updateTime: '',
-    workBeginTime: '',
-    workDayType: '',
-    workEndTime: ''
-  }
+  address: []
 })
 
 const { address } = toRefs(state)
@@ -82,16 +54,13 @@ const { address } = toRefs(state)
 async function getLocationFn() {
   const res = await mqCompanyAddress()
   if (res.code == 200) {
-    state.address = res.result[0]
+    state.address = res.result
   }
 }
 getLocationFn()
 
 function call(phone: string) {
   const res = uni.getSystemInfoSync();
-  uni.makePhoneCall({
-    phoneNumber: phone
-  });
   // ios系统默认有个模态框
   if (res.platform == 'ios') {
     uni.makePhoneCall({

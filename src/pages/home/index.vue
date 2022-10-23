@@ -58,9 +58,9 @@
     </view>
     <!-- <onlineChat /> -->
     <phone />
-    <!-- <MyDialog ref="confirmPopup" @onClose="onClose" @onConfirm="onConfirm">
+    <MyDialog ref="confirmPopup">
 
-    </MyDialog> -->
+    </MyDialog>
   </view>
 </template>
 

@@ -94,7 +94,7 @@
           <view class="title">七、缴纳职工社会保险费基数</view>
           <view class="uni-list">
             <view>技术标准：2018年7132元，2019年7832元（2019年11月起8211元），2020年7月9339元</view>
-            <view>最近4年内累计36个月在上海市缴纳职工社会保险费基数同上海市上年度职工平均工资比较：</view>
+            <view style="margin-bottom: 10rpx;">最近4年内累计36个月在上海市缴纳职工社会保险费基数同上海市上年度职工平均工资比较：</view>
             <radio-group @change="radioChange('shebao',$event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item3" :key="item.value">
                 <view class="radioTag">
@@ -289,6 +289,8 @@
     </view>
     <!-- <onlineChat /> -->
     <phone />
+    <!-- <MyDialog ref="MyDialogRef">
+    </MyDialog> -->
   </view>
 </template>
   
@@ -515,7 +517,7 @@ function handleSubmit() {
 
   .title {
     font-family: PingFangSC-Regular;
-    font-size: 24rpx;
+    font-size: 28rpx;
     color: #202046;
     letter-spacing: 0;
     font-weight: 400;

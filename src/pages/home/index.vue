@@ -58,19 +58,21 @@
     </view>
     <!-- <onlineChat /> -->
     <phone />
+    <!-- <MyDialog ref="confirmPopup" @onClose="onClose" @onConfirm="onConfirm">
+
+    </MyDialog> -->
   </view>
 </template>
 
 <script setup lang="ts">
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, ref, getCurrentInstance } from 'vue'
 import {
   onReachBottom, onReady
 } from '@dcloudio/uni-app';
 import { getBanner, getNewsType, getNewsInfo } from "@/api/index";
 import { resultDataInterface } from './index';
-// import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
-
+// import onlineChat from "@/components/onlineChat.vue";
 const state: {
   active: number,
   newList: Array<any>,
@@ -102,24 +104,17 @@ const state: {
 });
 const { active, newList, newType, banner, load } = toRefs(state);
 
-onReady(() => {
-  getTabsListFn()
-  getBannerFn()
 
+
+
+
+onReady(() => {
+  // const confirmPopup: any = ref(null);
+  // confirmPopup.value.alertDialogShowFunc(true);
 })
-uni.login({
-  provider: 'weixin',
-  success: function (loginRes) {
-    console.log(loginRes.authResult);
-    // 获取用户信息
-    uni.getUserProfile({
-      provider: 'weixin',
-      success: function (infoRes) {
-        console.log('用户昵称为：' + infoRes.userInfo);
-      }
-    });
-  }
-});
+
+
+
 onReachBottom(() => {
   state.page.pageNum++;
   let data = {
@@ -139,7 +134,9 @@ onReachBottom(() => {
     }
   });
 })
-
+getTabsListFn()
+getBannerFn()
+//详情
 function toDetailFun(id: string): void {
   uni.navigateTo({
     url: '/pages/newDetail/index?id=' + id

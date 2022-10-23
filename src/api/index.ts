@@ -39,3 +39,17 @@ export function addInfo(data: object) {
         data
     });
 }
+export function addNewContact(data: object) {
+    return request({
+        url: '/mq/mqbiz/mqNewContact/outside/addNewContact',
+        method: 'post',
+        data
+    });
+}
+export function addmqMembers(data: object) {
+    return request({
+        url: '/mq/mqbiz/mqMembers/outside/add',
+        method: 'post',
+        data
+    });
+}

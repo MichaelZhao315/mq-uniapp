@@ -154,6 +154,8 @@
     </view>
     <!-- <onlineChat /> -->
     <phone />
+    <!-- <MyDialog ref="MyDialogRef">
+    </MyDialog> -->
   </view>
 </template>
   
@@ -280,7 +282,6 @@ function handleSubmit() {
       });
     }
   })
-  console.log(state.baseFormData, 'baseFormData')
 }
 </script>
   
@@ -307,6 +308,7 @@ function handleSubmit() {
   width: 100%;
   box-sizing: border-box;
   padding: 48rpx 48rpx 180rpx 48rpx;
+  font-size: 28rpx;
 
   .mb {
     margin-bottom: 10rpx;
@@ -314,7 +316,7 @@ function handleSubmit() {
 
   .title {
     font-family: PingFangSC-Regular;
-    font-size: 24rpx;
+    font-size: 28rpx;
     color: #202046;
     letter-spacing: 0;
     font-weight: 400;

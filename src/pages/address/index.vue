@@ -13,7 +13,7 @@
         </view>
       </view>
       <view class="item">
-        <view class="name" @click="handleLocation">
+        <view class="name" @click="handleLocation(item.latitude,item.longitude,)">
           <image class="icon" src="@/static/images/tag.png" />路线
         </view>
         <view class="name" @click="call(item.phoneno)">
@@ -30,6 +30,8 @@
     </view>
     <!-- <onlineChat /> -->
     <phone />
+    <!-- <MyDialog ref="MyDialogRef">
+    </MyDialog> -->
   </view>
 </template>
   
@@ -37,20 +39,23 @@
 // import onlineChat from "@/components/onlineChat.vue";
 import phone from "@/components/phone.vue";
 import { mqCompanyAddress } from "@/api/index";
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, ref } from 'vue'
+import {
+  onReady
+} from '@dcloudio/uni-app';
 
 const state: {
-  latitude: number,
-  longitude: number,
   address: Array<any>,
 } = reactive({
-  latitude: 31.22249,
-  longitude: 121.5447,
   address: []
 })
 
 const { address } = toRefs(state)
+let MyDialogRef = ref('MyDialogRef'); // 获取ref节点
 
+onReady(() => {
+
+})
 async function getLocationFn() {
   const res = await mqCompanyAddress()
   if (res.code == 200) {
@@ -59,9 +64,9 @@ async function getLocationFn() {
 }
 getLocationFn()
 
+//电话
 function call(phone: string) {
   const res = uni.getSystemInfoSync();
-  // ios系统默认有个模态框
   if (res.platform == 'ios') {
     uni.makePhoneCall({
       phoneNumber: phone,
@@ -73,7 +78,6 @@ function call(phone: string) {
       }
     })
   } else {
-    //安卓手机手动设置一个showActionSheet
     uni.showActionSheet({
       itemList: [phone, '呼叫'],
       success: function (res) {
@@ -86,13 +90,11 @@ function call(phone: string) {
     })
   }
 }
-
-function handleLocation() {
+//地图
+function handleLocation(latitude: number, longitude: number) {
   uni.getLocation({
-    type: 'gcj02', //返回可以用于uni.openLocation的经纬度
+    type: 'gcj02',
     success: function (res) {
-      const latitude = state.latitude;
-      const longitude = state.longitude;
       uni.openLocation({
         latitude: latitude,
         longitude: longitude,
@@ -106,7 +108,7 @@ function handleLocation() {
     }
   });
 }
-
+//分享
 function handleShare() {
   uni.share({
     provider: "weixin",

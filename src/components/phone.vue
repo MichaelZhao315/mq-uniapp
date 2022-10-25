@@ -113,7 +113,7 @@ function dialogConfirm() {
     addNewContact(data).then(res => {
         if (res.code == 200) {
             uni.showToast({
-                title: '提交成功～～',
+                title: '提交成功',
                 duration: 2000
             });
         }

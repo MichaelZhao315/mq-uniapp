@@ -289,8 +289,7 @@
     </view>
     <!-- <onlineChat /> -->
     <phone />
-    <!-- <MyDialog ref="MyDialogRef">
-    </MyDialog> -->
+    <!-- <MyDialog ref="MyDialogRef"> </MyDialog> -->
   </view>
 </template>
   

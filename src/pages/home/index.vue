@@ -20,7 +20,7 @@
       <view class="itemWrap">
         <view :class="`item ${active==index&&'active'}`" @click="handleChange(index,item.id)"
           v-for="(item,index) in newType" :key="item.id">
-          <image :src="(item.typeLink+'/'+item.typeIcon)" class="imgtag" />
+          <image :src="item.typeIcon" class="imgtag" />
           <text class="tagname">{{item.typeName}}</text>
         </view>
       </view>
@@ -58,9 +58,7 @@
     </view>
     <!-- <onlineChat /> -->
     <phone />
-    <MyDialog ref="confirmPopup">
-
-    </MyDialog>
+    <!-- <MyDialog ref="confirmPopup"> </MyDialog> -->
   </view>
 </template>
 

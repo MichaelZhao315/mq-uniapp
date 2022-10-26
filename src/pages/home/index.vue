@@ -7,7 +7,7 @@
       <swiper class="swiper bgimg" circular :indicator-dots="true" :autoplay="true" :interval="2000" :duration="500">
         <swiper-item v-for="item in banner" :key="item.id">
           <view class="swiper-item uni-bg-red">
-            <image :src="item.mobileImgUrl" />
+            <image :src="item.mobileImgUrl" class="bgimg" />
           </view>
         </swiper-item>
       </swiper>

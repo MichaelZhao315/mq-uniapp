@@ -15,6 +15,10 @@ page {
   background-color: #F8F9FA
 }
 
+uni-page-head {
+  display: none;
+}
+
 .wx-checkbox-input-checked,
 .wx-radio-input-checked,
 .wx-switch-input-checked {

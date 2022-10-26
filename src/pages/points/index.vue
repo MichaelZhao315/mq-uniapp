@@ -443,7 +443,7 @@ let state: {
 const { baseFormData, items, item2, item3, item4 } = toRefs(state);
 
 function radioChange(key: string, evt: { detail: { value: number; }; }) {
-  state.baseFormData[key] = evt.detail.value
+  state.baseFormData[key] = Number(evt.detail.value)
 }
 function handleSubmit() {
 
@@ -463,7 +463,9 @@ function handleSubmit() {
   const nashuiNum2 = state.baseFormData['nashuiNum2']
 
   var age_score: number = 0, huanwei_score: number = 0, yuanjiao_score: number = 0,
-    peiou_score: number = 0, nashui_score: number = 0
+    peiou_score: number = 0, nashui_score: number = 0;
+  var jiaoyu_zhicheng_score = jiaoyu > zhicheng ? jiaoyu : zhicheng
+  var year_score = year * 3
 
   if (age <= 60) {
     if (age >= 56) {
@@ -472,8 +474,6 @@ function handleSubmit() {
       age_score = (56 - age) * 2 > 30 ? 30 : (56 - age) * 2
     }
   }
-  var jiaoyu_zhicheng_score = jiaoyu > zhicheng ? jiaoyu : zhicheng
-  var year_score = year * 3
   if (huanwei == 1 && huanweiNum >= 5) {
     huanwei_score = huanweiNum * 4
   }
@@ -493,9 +493,15 @@ function handleSubmit() {
     state.baseFormData['shebao'] + state.baseFormData['daxue'] + state.baseFormData['jiangli'] + state.baseFormData['xujia'] + state.baseFormData['juliu'] +
     state.baseFormData['fanzui']
 
+  if (summary <= 0) {
+    summary = 0
+  }
+  if (summary >= 120) {
+    summary = 120
+  }
   uni.showModal({
-    title: '提示',
-    content: '总数为' + summary,
+    title: "总分：" + summary,
+    content: "此分值为模拟打分，最终分值以实际申报材料计分为准！",
     success: function (res) {
       if (res.confirm) {
         console.log(summary, '用户点击确定');

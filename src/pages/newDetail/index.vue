@@ -11,7 +11,8 @@
             </view>
         </view>
         <view class="richtext">
-            <rich-text :nodes="detail.infoContent"></rich-text>
+            <mp-html :content="detail.infoContent" />
+            <!-- <rich-text :nodes="detail.infoContent"></rich-text> -->
         </view>
 
     </view>
@@ -28,7 +29,6 @@ let state: { detail: any } = reactive({ // 响应式数据
 const { detail } = toRefs(state);
 
 onLoad((option) => {
-    console.log(option, 'd')
     queryById({
         id: option.id,
     }).then(res => {

@@ -10,7 +10,7 @@
                             <uni-easyinput v-model="baseFormData.realname" placeholder="请输入姓名" />
                         </uni-forms-item>
                         <uni-forms-item label="电话" required name="phoneno">
-                            <uni-easyinput v-model="baseFormData.phoneno" placeholder="请输入电话" />
+                            <uni-easyinput v-model="baseFormData.phoneno" placeholder="请输入电话" type="number" />
                         </uni-forms-item>
                         <uni-forms-item label="留言">
                             <uni-easyinput type="textarea" v-model="baseFormData.basicDescription"
@@ -49,7 +49,7 @@ const state: {
     },
     baseFormData: {
         realname: string,
-        phoneno: number,
+        phoneno: number | undefined,
         basicDescription: string
     },
     rules: any
@@ -72,7 +72,7 @@ const state: {
     },
     baseFormData: {
         realname: "",
-        phoneno: 0,
+        phoneno: undefined,
         basicDescription: ""
     },
     workTime: false,
@@ -138,6 +138,7 @@ function dialogConfirm() {
                     title: '提交成功!',
                     duration: 2000
                 });
+                alertDialog.value.close()
             }
         })
     }).catch((err: any) => {

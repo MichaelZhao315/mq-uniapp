@@ -103,14 +103,10 @@ const state: {
 const { active, newList, newType, banner, load } = toRefs(state);
 
 
-
-
-
 onReady(() => {
   // const confirmPopup: any = ref(null);
   // confirmPopup.value.alertDialogShowFunc(true);
 })
-
 
 
 onReachBottom(() => {

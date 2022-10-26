@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue';
-import { useRoute } from 'vue-router';
+import { onLoad } from '@dcloudio/uni-app';
 import { queryById } from "@/api/index";
 
 let state: { detail: any } = reactive({ // 响应式数据
@@ -27,17 +27,17 @@ let state: { detail: any } = reactive({ // 响应式数据
 })
 const { detail } = toRefs(state);
 
-async function getDetail() {
+onLoad((option) => {
+    console.log(option, 'd')
     queryById({
-        id: useRoute().query.id,
+        id: option.id,
     }).then(res => {
         if (res.code == 200) {
             state.detail = res.result
         }
     })
-}
+})
 
-getDetail()
 
 </script>
 

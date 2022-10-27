@@ -1,9 +1,9 @@
 <template>
-  <view class="pointsbox">
+  <view>
     <view class="headtitle">《上海市居住证》积分模拟打分计算器</view>
     <view class="content">
       <view class="desc">基础指标及分值</view>
-      <uni-forms ref="baseForm" :modelValue="baseFormData">
+      <uni-forms ref="baseForm" :modelValue="baseFormData" class="pointsbox">
         <uni-forms-item>
           <view class="title">一、您的年龄</view>
           <uni-easyinput v-model="baseFormData.age" placeholder="请输入年龄" class="inputText" type="number" />
@@ -299,10 +299,10 @@ import { reactive, toRefs } from 'vue'
 import phone from "@/components/phone.vue";
 let state: {
   baseFormData: {
-    age: number,
+    age: number | string,
     jiaoyu: number,
     zhicheng: number,
-    year: number,
+    year: number | string,
     jinji: number,
     nashui: number,
     shebao: number,
@@ -314,11 +314,13 @@ let state: {
     xujia: number,
     juliu: number,
     fanzui: number,
-    huanweiNum: number,
+    huanweiNum: number | string,
     yuanjiaoNum: number,
-    peiouNum: number,
-    [propName: string]: number;
-    [propName: number]: number;
+    peiouNum: number | string,
+    nashuiNum1: number | string,
+    nashuiNum2: number | string,
+    [propName: string]: number | string;
+    [propName: number]: number | string;
   },
   current: number,
   items: Array<any>,
@@ -328,10 +330,10 @@ let state: {
 } = reactive({
   // 响应式数据
   baseFormData: {
-    age: 0,
+    age: "",
     jiaoyu: 0,
     zhicheng: 0,
-    year: 0,
+    year: "",
     jinji: 0,
     nashui: 0,
     shebao: 0,
@@ -343,9 +345,11 @@ let state: {
     xujia: 0,
     juliu: 0,
     fanzui: 0,
-    huanweiNum: 0,
+    huanweiNum: "",
     yuanjiaoNum: 0,
-    peiouNum: 0
+    nashuiNum1: "",
+    nashuiNum2: "",
+    peiouNum: ""
   },
   current: 0,
   items: [{
@@ -448,19 +452,19 @@ function radioChange(key: string, evt: { detail: { value: number; }; }) {
 function handleSubmit() {
 
   var summary = 0
-  const age = state.baseFormData.age
+  const age = Number(state.baseFormData.age)
   const jiaoyu = state.baseFormData['jiaoyu']
   const zhicheng = state.baseFormData['zhicheng']
-  const year = state.baseFormData['year']
+  const year = Number(state.baseFormData['year'])
   const huanwei = state.baseFormData['huanwei']
-  const huanweiNum = state.baseFormData['huanweiNum']
+  const huanweiNum = Number(state.baseFormData['huanweiNum'])
   const yuanjiao = state.baseFormData['yuanjiao']
   const yuanjiaoNum = state.baseFormData['yuanjiaoNum']
   const peiou = state.baseFormData['peiou']
-  const peiouNum = state.baseFormData['peiouNum']
+  const peiouNum = Number(state.baseFormData['peiouNum'])
   const nashui = state.baseFormData['nashui']
-  const nashuiNum1 = state.baseFormData['nashuiNum1']
-  const nashuiNum2 = state.baseFormData['nashuiNum2']
+  const nashuiNum1 = Number(state.baseFormData['nashuiNum1'])
+  const nashuiNum2 = Number(state.baseFormData['nashuiNum2'])
 
   var age_score: number = 0, huanwei_score: number = 0, yuanjiao_score: number = 0,
     peiou_score: number = 0, nashui_score: number = 0;

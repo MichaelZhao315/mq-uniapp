@@ -1,9 +1,9 @@
 <template>
-  <view class="assessmentbox">
+  <view>
     <view class="headtitle">上海落户信息填写</view>
     <image class="element" src="@/static/images/element.png"></image>
     <view class="content">
-      <uni-forms ref="baseForm" :modelValue="baseFormData">
+      <uni-forms ref="baseForm" :modelValue="baseFormData" class="assessmentbox">
         <uni-forms-item>
           <view class="title">一、您的姓名</view>
           <uni-easyinput v-model="baseFormData.realName" placeholder="请输入姓名" class="inputText" />

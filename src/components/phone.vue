@@ -108,11 +108,11 @@ getLocationFn()
 
 function call() {
     if (checkWorkDate(state.address.workBeginTime, state.address.workEndTime)) {
-        alertDialog.value.open()
-    } else {
         uni.makePhoneCall({
             phoneNumber: state.address.phoneno
         });
+    } else {
+        alertDialog.value.open()
     }
 }
 function checkWorkDate(startTime: string, endTime: string) {

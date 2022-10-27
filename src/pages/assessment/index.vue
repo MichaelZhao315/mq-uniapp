@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="assessmentbox">
     <view class="headtitle">上海落户信息填写</view>
     <image class="element" src="@/static/images/element.png"></image>
     <view class="content">
@@ -11,7 +11,7 @@
         <uni-forms-item>
           <view class="title">二、性别</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('sex',$event)">
+            <radio-group @change="radioChange('sex', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">男</text>
@@ -30,10 +30,10 @@
         <uni-forms-item>
           <view class="title">三、文化程度</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('educationLevel',$event)">
+            <radio-group @change="radioChange('educationLevel', $event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
-                  <text class="radioName">{{item.name}}</text>
+                  <text class="radioName">{{ item.name }}</text>
                   <radio :value="item.value" />
                 </view>
               </label>
@@ -43,10 +43,10 @@
         <uni-forms-item>
           <view class="title">四、学位</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('ademicDegree',$event)">
+            <radio-group @change="radioChange('ademicDegree', $event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
-                  <text class="radioName">{{item.name}}</text>
+                  <text class="radioName">{{ item.name }}</text>
                   <radio :value="item.value" />
                 </view>
               </label>
@@ -60,7 +60,7 @@
         <uni-forms-item>
           <view class="title">六、公司是否是高新企业或重点金融企业</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('companyType',$event)">
+            <radio-group @change="radioChange('companyType', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">是</text>
@@ -85,7 +85,7 @@
         <uni-forms-item>
           <view class="title">八、有无中高级职称/技能资格证书</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('hasSeniorProfessionalTitle',$event)">
+            <radio-group @change="radioChange('hasSeniorProfessionalTitle', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">有</text>
@@ -284,7 +284,23 @@ function handleSubmit() {
   })
 }
 </script>
-  
+<style >
+page {
+  background-color: #F8F9FA
+}
+
+.assessmentbox /deep/ .uni-easyinput__content {
+  height: 92rpx;
+  border-radius: 30rpx;
+  padding-left: 20rpx;
+}
+
+.inputText {
+  width: 100%;
+  height: 92rpx;
+  border-radius: 30rpx;
+}
+</style>
 <style lang="scss" scoped>
 .element {
   width: 218rpx;
@@ -302,6 +318,8 @@ function handleSubmit() {
   font-weight: 400;
   text-align: center;
   background: white;
+  box-shadow: 0 88rpx 130rpx 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0 0 30rpx 30rpx;
 }
 
 .content {

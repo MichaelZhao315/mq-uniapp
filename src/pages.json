@@ -43,7 +43,6 @@
 		"selectedColor": "#002451",
 		"borderStyle": "black",
 		"backgroundColor": "white",
-		"height":"160rpx",
 		"list": [{
 			"pagePath": "pages/home/index",
 			"iconPath": "static/images/home.png",

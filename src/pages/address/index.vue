@@ -6,14 +6,14 @@
         <view class="detail">
           <image class="icon" src="@/static/images/company.png" />
           <view class="right">
-            <text class="word">{{item.companyName}}</text>
-            <text class="time">{{`工作日：${item.workBeginTime}～${item.workEndTime}`}}</text>
-            <text class="word">{{item.companyAddress}}</text>
+            <text class="word">{{ item.companyName }}</text>
+            <text class="time">{{ `工作日：${item.workBeginTime}～${item.workEndTime}` }}</text>
+            <text class="word">{{ item.companyAddress }}</text>
           </view>
         </view>
       </view>
       <view class="item">
-        <view class="name" @click="handleLocation(item.latitude,item.longitude,)">
+        <view class="name" @click="handleLocation(item.latitude, item.longitude,)">
           <image class="icon" src="@/static/images/tag.png" />路线
         </view>
         <view class="name" @click="call(item.phoneno)">
@@ -40,9 +40,7 @@
 import phone from "@/components/phone.vue";
 import { mqCompanyAddress } from "@/api/index";
 import { reactive, toRefs, ref } from 'vue'
-import {
-  onReady
-} from '@dcloudio/uni-app';
+
 
 const state: {
   address: Array<any>,
@@ -51,11 +49,9 @@ const state: {
 })
 
 const { address } = toRefs(state)
-let MyDialogRef = ref('MyDialogRef'); // 获取ref节点
+// let MyDialogRef = ref('MyDialogRef'); // 获取ref节点
 
-onReady(() => {
 
-})
 async function getLocationFn() {
   const res = await mqCompanyAddress()
   if (res.code == 200) {
@@ -124,6 +120,11 @@ function handleShare() {
   });
 }
 </script>
+<style lang="scss">
+page {
+  background-color: #F8F9FA
+}
+</style>
 <style lang="scss" scoped>
 .content {
   width: 638rpx;

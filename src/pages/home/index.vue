@@ -2,59 +2,62 @@
   <view class="content">
     <!-- head -->
     <view class="headContent">
-      <!-- <image src="@/static/images/top_bg_shanghai.png" class="bgimg" />
-      <image src="@/static/images/top_bg_mask.png" class="bgimg" /> -->
+      <!-- <image src="@/static/images/top_bg_shanghai.png" class="bgimg" />-->
       <swiper class="swiper bgimg" circular :indicator-dots="true" :autoplay="true" :interval="2000" :duration="500">
-        <swiper-item v-for="item in banner" :key="item.id">
+        <swiper-item v-for="item in banner" :key="item.id" @click="toDetailFun(item.navigateUrl)">
           <view class="swiper-item uni-bg-red">
             <image :src="item.mobileImgUrl" class="bgimg" />
           </view>
         </swiper-item>
       </swiper>
+      <!-- <image src="@/static/images/top_bg_mask.png" class="bgimg" /> -->
       <uni-nav-bar title="名企—上海落户通" color="white" :border="false" backgroundColor="transparent" class="navbar">
       </uni-nav-bar>
-      <view class="search">
-        <uni-search-bar class="uni-mt-10" radius="100" placeholder="输入搜索内容" clearButton="none" cancelButton="none"
-          @confirm="search" />
+      <view class="searchbox">
+        <!-- <uni-search-bar class="uni-mt-10" radius="100" placeholder="输入搜索内容" clearButton="none" cancelButton="none"
+          @confirm="search" /> -->
+        <uni-easyinput placeholder="输入搜索内容" suffixIcon="search" v-model="searchData" class="searchinput"
+          @iconClick="search" @keyup.enter="search" placeholderStyle=" font-size: 24rpx;color: #004751;" />
       </view>
       <view class="itemWrap">
-        <view :class="`item ${active==index&&'active'}`" @click="handleChange(index,item.id)"
-          v-for="(item,index) in newType" :key="item.id">
+        <view :class="`item ${active == index && 'active'}`" @click="handleChange(index, item.id)"
+          v-for="(item, index) in newType" :key="item.id">
           <image :src="item.typeIcon" class="imgtag" />
-          <text class="tagname">{{item.typeName}}</text>
+          <text class="tagname">{{ item.typeName }}</text>
         </view>
       </view>
     </view>
     <view class="listcontent">
       <!-- 第一条 -->
-      <template v-if="newList.length>0">
+      <template v-if="newList.length > 0">
         <view class="list1" @click="toDetailFun(newList[0].id)">
           <image class="img" :src="newList[0].infoPicUrl" />
-          <text class="title">{{newList[0].titile}}</text>
+          <text class="title">{{ newList[0].titile }}</text>
           <view class="time">
             <view>
-              <image src="@/static/images/view.png" class="view" /> {{newList[0].readingAmount}}
+              <image src="@/static/images/view.png" class="view" />{{ newList[0].readingAmount }}次
             </view>
-            <text>{{newList[0].createTime}}</text>
+            <text>{{ newList[0].createTime }}</text>
           </view>
         </view>
       </template>
       <!-- 第+1条 -->
-      <template v-if="newList.length>1">
+      <template v-if="newList.length > 1">
         <view class="list" v-for="list in newList" :key="list.id" @click="toDetailFun(list.id)">
           <view class="left">
-            <text class="title">{{list.titile}}</text>
+            <text class="title">{{ list.titile }}</text>
             <view class="time">
               <view class="num">
-                <image src="@/static/images/view.png" class="view" /> {{list.readingAmount}}
+                <image src="@/static/images/view.png" class="view" />{{ list.readingAmount }}次
               </view>
-              <text>{{list.createTime}}</text>
+              <text>{{ list.createTime }}</text>
             </view>
           </view>
           <image class="rightImg" :src="newList[0].infoPicUrl" />
         </view>
       </template>
-      <uni-load-more :status="load" :class="newList.length<=0&&'load'"></uni-load-more>
+      <uni-load-more :status="load" :class="newList.length <= 0 && 'load'">
+      </uni-load-more>
     </view>
     <!-- <onlineChat /> -->
     <phone />
@@ -79,6 +82,7 @@ const state: {
   infoType: string,
   load: string,
   content: string,
+  searchData: string,
   page: {
     pageSize: number,
     pageNum: number,
@@ -93,21 +97,23 @@ const state: {
   banner: [],
   load: "nomore",
   content: "",
+  searchData: "",
   page: {
     pageSize: 10,
     pageNum: 1,
     total: 0,
   },
+  placeholderStyle: {
 
+  }
 });
-const { active, newList, newType, banner, load } = toRefs(state);
+const { active, newList, newType, banner, load, searchData } = toRefs(state);
 
 
 onReady(() => {
   // const confirmPopup: any = ref(null);
   // confirmPopup.value.alertDialogShowFunc(true);
 })
-
 
 onReachBottom(() => {
   state.page.pageNum++;
@@ -128,13 +134,17 @@ onReachBottom(() => {
     }
   });
 })
+
 getTabsListFn()
 getBannerFn()
+
 //详情
 function toDetailFun(id: string): void {
-  uni.navigateTo({
-    url: '/pages/newDetail/index?id=' + id
-  });
+  if (id) {
+    uni.navigateTo({
+      url: '/pages/newDetail/index?id=' + id
+    });
+  }
 }
 
 //获取分类
@@ -149,7 +159,6 @@ async function getTabsListFn() {
     getNewsFn(data)
   }
 }
-
 
 //获取资讯
 async function getNewsFn(data: object) {
@@ -166,12 +175,11 @@ async function getBannerFn() {
   }
 }
 
-
 //搜索
-function search(res: { value: any; }) {
-  state.content = res.value
+function search() {
+  state.content = state.searchData
   const data = {
-    infoContent: res.value,
+    infoContent: state.searchData,
     infoType: ""
   }
   getNewsFn(data)
@@ -190,7 +198,21 @@ function handleChange(val: number, infoType: string) {
 
 
 </script>
+<style>
+.searchbox /deep/ .uni-easyinput__content {
+  background: #F8F8F8;
+  border-radius: 132px;
+  width: 652rpx;
+  height: 80rpx;
+  padding: 0 15rpx;
+  font-family: MicrosoftYaHei;
+  font-size: 24px;
+  color: #004751;
+  letter-spacing: 0;
+  font-weight: 400;
 
+}
+</style>
 <style lang="scss" scoped>
 .headContent {
   width: 100%;
@@ -269,6 +291,7 @@ function handleChange(val: number, infoType: string) {
       width: 100rpx;
       height: 100rpx;
       display: inline-block;
+      margin-bottom: 10rpx;
     }
 
     .tagname {
@@ -364,8 +387,8 @@ function handleChange(val: number, infoType: string) {
   }
 
   .num {
-    width: 100rpx;
-    margin-right: 100rpx;
+    min-width: 150rpx;
+    margin-right: 20rpx;
   }
 }
 </style>

@@ -107,7 +107,7 @@ async function getLocationFn() {
 getLocationFn()
 
 function call() {
-    if (!checkWorkDate(state.address.workBeginTime, state.address.workEndTime)) {
+    if (checkWorkDate(state.address.workBeginTime, state.address.workEndTime)) {
         alertDialog.value.open()
     } else {
         uni.makePhoneCall({
@@ -155,7 +155,7 @@ function dialogConfirm() {
     height: 120rpx;
     position: fixed;
     right: 0;
-    bottom: 200rpx;
+    bottom: 15%;
     z-index: 3;
 }
 

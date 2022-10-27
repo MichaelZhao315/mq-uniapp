@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="pointsbox">
     <view class="headtitle">《上海市居住证》积分模拟打分计算器</view>
     <view class="content">
       <view class="desc">基础指标及分值</view>
@@ -11,10 +11,10 @@
         <uni-forms-item>
           <view class="title">二、教育背景</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('jiaoyu',$event)">
+            <radio-group @change="radioChange('jiaoyu', $event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
                 <view class="radioTag">
-                  <text class="radioName">{{item.name}}</text>
+                  <text class="radioName">{{ item.name }}</text>
                   <radio :value="item.value" />
                 </view>
               </label>
@@ -24,10 +24,10 @@
         <uni-forms-item>
           <view class="title">三、专业技术职称和技能等级</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('zhicheng',$event)">
+            <radio-group @change="radioChange('zhicheng', $event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
                 <view class="radioTag">
-                  <text class="radioName">{{item.name}}</text>
+                  <text class="radioName">{{ item.name }}</text>
                   <radio :value="item.value" />
                 </view>
               </label>
@@ -41,7 +41,7 @@
         <uni-forms-item>
           <view class="title">五、紧急急需专业</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('jinji',$event)">
+            <radio-group @change="radioChange('jinji', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
@@ -60,7 +60,7 @@
         <uni-forms-item>
           <view class="title">六、投资纳税或带动本地就业</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('nashui',$event)">
+            <radio-group @change="radioChange('nashui', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
@@ -73,7 +73,7 @@
                   <radio :value="1" />
                 </view>
               </label>
-              <view v-if="baseFormData.nashui==1">纳税金额(单位：万)
+              <view v-if="baseFormData.nashui == 1">纳税金额(单位：万)
                 <uni-easyinput v-model="baseFormData.nashuiNum1" placeholder="请输入纳税金额" class="inputText" type="number"
                   style="margin-bottom: 10rpx;" />
               </view>
@@ -84,7 +84,7 @@
                 </view>
               </label>
             </radio-group>
-            <view v-if="baseFormData.nashui==2">聘用人数：
+            <view v-if="baseFormData.nashui == 2">聘用人数：
               <uni-easyinput v-model="baseFormData.nashuiNum2" placeholder="请输入聘用上海户籍人数" class="inputText"
                 type="number" />
             </view>
@@ -95,10 +95,10 @@
           <view class="uni-list">
             <view>技术标准：2018年7132元，2019年7832元（2019年11月起8211元），2020年7月9339元</view>
             <view style="margin-bottom: 10rpx;">最近4年内累计36个月在上海市缴纳职工社会保险费基数同上海市上年度职工平均工资比较：</view>
-            <radio-group @change="radioChange('shebao',$event)">
+            <radio-group @change="radioChange('shebao', $event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item3" :key="item.value">
                 <view class="radioTag">
-                  <text class="radioName">{{item.name}}</text>
+                  <text class="radioName">{{ item.name }}</text>
                   <radio :value="item.value" />
                 </view>
               </label>
@@ -108,7 +108,7 @@
         <uni-forms-item>
           <view class="title">八、特定的公共服务领域（环卫）</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('huanwei',$event)">
+            <radio-group @change="radioChange('huanwei', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
@@ -131,7 +131,7 @@
         <uni-forms-item>
           <view class="title">九、远郊重点区域（临港地区）</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('yuanjiao',$event)">
+            <radio-group @change="radioChange('yuanjiao', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
@@ -154,7 +154,7 @@
         <uni-forms-item>
           <view class="title">十、是否全日制应届高校大学毕业生</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('daxue',$event)">
+            <radio-group @change="radioChange('daxue', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
@@ -173,10 +173,10 @@
         <uni-forms-item>
           <view class="title">十一、您在上海工作期间是否获得过表彰奖励</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('jiangli',$event)">
+            <radio-group @change="radioChange('jiangli', $event)">
               <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item4" :key="item.value">
                 <view class="radioTag">
-                  <text class="radioName">{{item.name}}</text>
+                  <text class="radioName">{{ item.name }}</text>
                   <radio :value="item.value" />
                 </view>
               </label>
@@ -186,7 +186,7 @@
         <uni-forms-item>
           <view class="title">十二、配偶为本地户籍人员</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('peiou',$event)">
+            <radio-group @change="radioChange('peiou', $event)">
 
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
@@ -210,7 +210,7 @@
         <uni-forms-item>
           <view class="title">十三、三年内申请积分时提供虚假材料</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('xujia',$event)">
+            <radio-group @change="radioChange('xujia', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
@@ -235,7 +235,7 @@
         <uni-forms-item>
           <view class="title">十四、五年内行政拘留记录</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('juliu',$event)">
+            <radio-group @change="radioChange('juliu', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
@@ -260,7 +260,7 @@
         <uni-forms-item>
           <view class="title">十五、五年内一般刑事犯罪记录</view>
           <view class="uni-list">
-            <radio-group @change="radioChange('fanzui',$event)">
+            <radio-group @change="radioChange('fanzui', $event)">
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
@@ -513,7 +513,24 @@ function handleSubmit() {
 }
 
 </script>
-  
+<style >
+page {
+  background-color: #F8F9FA
+}
+
+.pointsbox /deep/ .uni-easyinput__content {
+  height: 92rpx;
+  border-radius: 30rpx;
+  padding-left: 20rpx;
+}
+
+.inputText {
+  width: 100%;
+  height: 92rpx;
+  border-radius: 30rpx;
+
+}
+</style>
 <style lang="scss" scoped>
 .content {
   width: 100%;
@@ -533,12 +550,13 @@ function handleSubmit() {
 .radioTag {
   border: 1px solid rgba(231, 231, 231, 1);
   border-radius: 30rpx;
-  padding: 20rpx;
+  padding-left: 20rpx;
   background: #FFFFFF;
   margin-bottom: 22rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 92rpx;
 }
 
 .headtitle {
@@ -550,15 +568,15 @@ function handleSubmit() {
   font-weight: 400;
   text-align: center;
   background: white;
+  box-shadow: 0 88rpx 130rpx 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0 0 30rpx 30rpx;
 }
 
 .desc {
   padding: 0 0 20rpx 0;
 }
 
-.inputText {
-  width: 100%;
-}
+
 
 .radioName {
   font-family: PingFangSC-Regular;

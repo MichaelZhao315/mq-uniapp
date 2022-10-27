@@ -2,19 +2,18 @@
 
     <view class="detail">
         <view class="headtop">
-            <view class="title">{{detail.titile}}</view>
+            <view class="title">{{ detail.titile }}</view>
             <view class="time">
                 <view>
-                    <image src="@/static/images/view.png" class="view" /> {{detail.readingAmount}}
+                    <image src="@/static/images/view.png" class="view" /> {{ detail.readingAmount }}
                 </view>
-                <view>{{detail.updateTime}}</view>
+                <view>{{ detail.updateTime }}</view>
             </view>
         </view>
         <view class="richtext">
             <mp-html :content="detail.infoContent" />
             <!-- <rich-text :nodes="detail.infoContent"></rich-text> -->
         </view>
-
     </view>
 </template>
 

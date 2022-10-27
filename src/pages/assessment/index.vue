@@ -113,18 +113,22 @@
         </uni-forms-item>
         <uni-forms-item>
           <view class="title">十一、近四年上海社保缴纳的基数</view>
-          <view class="title">例：2018年1月 - -至今</view>
+          <!-- <view class="title">例：2018年1月 - -至今</view> -->
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.socialSecurityFirstYears" placeholder="填写近一年社保基数" type="number" />
+            <uni-easyinput v-model="baseFormData.socialSecurityFirstYears"
+              :placeholder="'填写' + new Date().getFullYear() + '年社保基数'" type="number" />
           </view>
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.socialSecuritySecondYears" placeholder="填写近二年社保基数" type="number" />
+            <uni-easyinput v-model="baseFormData.socialSecuritySecondYears"
+              :placeholder="'填写' + (new Date().getFullYear() - 1) + '年社保基数'" type="number" />
           </view>
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.socialSecurityThirdYears" placeholder="填写近三年社保基数" type="number" />
+            <uni-easyinput v-model="baseFormData.socialSecurityThirdYears"
+              :placeholder="'填写' + (new Date().getFullYear() - 2) + '年社保基数'" type="number" />
           </view>
           <view class="mb">
-            <uni-easyinput v-model="baseFormData.socialSecurityForthYears" placeholder="填写近四年社保基数" type="number" />
+            <uni-easyinput v-model="baseFormData.socialSecurityForthYears" :placeholder="'填写' +
+            (new Date().getFullYear() - 3) + '年社保基数'" type="number" />
           </view>
 
         </uni-forms-item>

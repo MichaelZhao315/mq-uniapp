@@ -210,6 +210,7 @@ function handleChange(val: number, infoType: string) {
   color: #004751;
   letter-spacing: 0;
   font-weight: 400;
+  border: none !important;
 
 }
 </style>

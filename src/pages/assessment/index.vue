@@ -64,13 +64,13 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">是</text>
-                  <radio value="0" />
+                  <radio value="1" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
-                  <radio value="1" />
+                  <radio value="0" />
                 </view>
               </label>
             </radio-group>
@@ -89,13 +89,13 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">有</text>
-                  <radio value="0" />
+                  <radio value="1" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
-                  <radio value="1" />
+                  <radio value="0" />
                 </view>
               </label>
             </radio-group>
@@ -209,42 +209,46 @@ let state: {
     contactTelephone: ""
   },
   items: [{
-    value: '0',
-    name: '高中（中专、职校、技校）及以下',
+    value: '1',
+    name: '研究生',
     checked: 'true'
   },
   {
-    value: '1',
-    name: '大专（高职）学历'
-  },
-  {
     value: '2',
-    name: '大学本科学历和学士学位'
+    name: '本科'
   },
   {
     value: '3',
-    name: '硕士研究生学历学位'
+    name: '大专（高等职校）'
   },
   {
     value: '4',
-    name: '博士研究生学历'
+    name: '普通高中'
+  },
+  {
+    value: '5',
+    name: '中专、技校'
+  },
+  {
+    value: '6',
+    name: '高中以下'
   },
   ],
   item2: [{
-    value: '0',
+    value: '1',
     name: '博士',
     checked: 'true'
   },
   {
-    value: '1',
-    name: '本科'
-  },
-  {
     value: '2',
-    name: '大专'
+    name: '硕士'
   },
   {
     value: '3',
+    name: '学士'
+  },
+  {
+    value: '4',
     name: '无'
   },
   ]

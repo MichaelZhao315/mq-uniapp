@@ -3,7 +3,7 @@
     <view class="headtitle">上海落户信息填写</view>
     <image class="element" src="@/static/images/element.png"></image>
     <view class="content">
-      <uni-forms ref="baseForm" :modelValue="baseFormData" class="assessmentbox">
+      <uni-forms ref="baseForm" :modelValue="baseFormData" class="assessmentbox" :rules="rules">
         <uni-forms-item>
           <view class="title">一、您的姓名</view>
           <uni-easyinput v-model="baseFormData.realName" placeholder="请输入姓名" class="inputText" />
@@ -15,7 +15,7 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">男</text>
-                  <radio value="1" />
+                  <radio value="1" checked="true" />
                 </view>
               </label>
               <label class="uni-list-cell uni-list-cell-pd">
@@ -28,26 +28,74 @@
           </view>
         </uni-forms-item>
         <uni-forms-item>
-          <view class="title">三、文化程度</view>
+          <view class="title">三、文化程度<text class="required">*</text></view>
           <view class="uni-list">
             <radio-group @change="radioChange('educationLevel', $event)">
-              <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+              <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">{{ item.name }}</text>
-                  <radio :value="item.value" />
+                  <text class="radioName">研究生</text>
+                  <radio value="1" checked="true" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">本科</text>
+                  <radio value="2" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">大专（高等职校）</text>
+                  <radio value="3" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">普通高中</text>
+                  <radio value="4" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">中专、技校</text>
+                  <radio value="5" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">高中以下</text>
+                  <radio value="6" />
                 </view>
               </label>
             </radio-group>
           </view>
         </uni-forms-item>
         <uni-forms-item>
-          <view class="title">四、学位</view>
+          <view class="title">四、学位<text class="required">*</text></view>
           <view class="uni-list">
             <radio-group @change="radioChange('ademicDegree', $event)">
-              <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in item2" :key="item.value">
+              <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
-                  <text class="radioName">{{ item.name }}</text>
-                  <radio :value="item.value" />
+                  <text class="radioName">博士</text>
+                  <radio value="1" checked="true" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">硕士</text>
+                  <radio value="2" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">学士</text>
+                  <radio value="3" />
+                </view>
+              </label>
+              <label class="uni-list-cell uni-list-cell-pd">
+                <view class="radioTag">
+                  <text class="radioName">无</text>
+                  <radio value="4" />
                 </view>
               </label>
             </radio-group>
@@ -70,7 +118,7 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">否</text>
-                  <radio value="0" />
+                  <radio value="0" checked="true" />
                 </view>
               </label>
             </radio-group>
@@ -95,7 +143,7 @@
               <label class="uni-list-cell uni-list-cell-pd">
                 <view class="radioTag">
                   <text class="radioName">无</text>
-                  <radio value="0" />
+                  <radio value="0" checked="true" />
                 </view>
               </label>
             </radio-group>
@@ -106,13 +154,13 @@
           <uni-easyinput v-model="baseFormData.seniorProfessionalTitle" placeholder="请输入您的职称/技能全称" class="inputText" />
         </uni-forms-item>
         <uni-forms-item>
-          <view class="title">十、居住证首次办证时间</view>
+          <view class="title">十、居住证首次办证时间<text class="required">*</text></view>
           <view class="example-body">
             <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.firstResidencePermitDate" />
           </view>
         </uni-forms-item>
         <uni-forms-item>
-          <view class="title">十一、近四年上海社保缴纳的基数</view>
+          <view class="title">十一、近四年上海社保缴纳的基数<text class="required">*</text></view>
           <!-- <view class="title">例：2018年1月 - -至今</view> -->
           <view class="mb">
             <uni-easyinput v-model="baseFormData.socialSecurityFirstYears"
@@ -133,7 +181,7 @@
 
         </uni-forms-item>
         <uni-forms-item>
-          <view class="title">十二、联系方式</view>
+          <view class="title">十二、联系方式 <text class="required">*</text></view>
           <uni-easyinput v-model="baseFormData.contactTelephone" placeholder="填写联系方式" class="inputText" type="number" />
           <view class="title" style="text-align: right;margin-top: 5rpx;">之后会有老师联系您</view>
         </uni-forms-item>
@@ -186,20 +234,18 @@ let state: {
     socialSecurityForthYears: string,
     contactTelephone: string,
     [propName: string]: string;
-  },
-  items: Array<any>,
-  item2: Array<any>,
+  }
 } = reactive({
   // 响应式数据
   baseFormData: {
     realName: "",
-    sex: "",
-    educationLevel: "",
-    ademicDegree: "",
+    sex: "1",
+    educationLevel: "1",
+    ademicDegree: "1",
     major: "",
-    companyType: "",
+    companyType: "0",
     checkInDate: "",
-    hasSeniorProfessionalTitle: "",
+    hasSeniorProfessionalTitle: "0",
     seniorProfessionalTitle: "",
     firstResidencePermitDate: "",
     socialSecurityFirstYears: "",
@@ -207,59 +253,16 @@ let state: {
     socialSecurityThirdYears: "",
     socialSecurityForthYears: "",
     contactTelephone: ""
-  },
-  items: [{
-    value: '1',
-    name: '研究生',
-    checked: 'true'
-  },
-  {
-    value: '2',
-    name: '本科'
-  },
-  {
-    value: '3',
-    name: '大专（高等职校）'
-  },
-  {
-    value: '4',
-    name: '普通高中'
-  },
-  {
-    value: '5',
-    name: '中专、技校'
-  },
-  {
-    value: '6',
-    name: '高中以下'
-  },
-  ],
-  item2: [{
-    value: '1',
-    name: '博士',
-    checked: 'true'
-  },
-  {
-    value: '2',
-    name: '硕士'
-  },
-  {
-    value: '3',
-    name: '学士'
-  },
-  {
-    value: '4',
-    name: '无'
-  },
-  ]
+  }
 });
-const { baseFormData, items, item2, } = toRefs(state);
+const { baseFormData } = toRefs(state);
 function radioChange(key: string, evt: { detail: { value: string; }; }) {
   state.baseFormData[key] = evt.detail.value
 }
 
 function handleSubmit() {
-  addInfo(state.baseFormData).then(res => {
+  if(state.baseFormData.contactTelephone&&state.baseFormData.firstResidencePermitDate){
+    addInfo(state.baseFormData).then(res => {
     if (res.code == 200) {
       uni.showModal({
         title: '提示',
@@ -268,13 +271,13 @@ function handleSubmit() {
           if (res.confirm) {
             state.baseFormData = {
               realName: "",
-              sex: "",
-              educationLevel: "",
-              ademicDegree: "",
+              sex: "1",
+              educationLevel: "1",
+              ademicDegree: "1",
               major: "",
-              companyType: "",
+              companyType: "0",
               checkInDate: "",
-              hasSeniorProfessionalTitle: "",
+              hasSeniorProfessionalTitle: "0",
               seniorProfessionalTitle: "",
               firstResidencePermitDate: "",
               socialSecurityFirstYears: "",
@@ -290,6 +293,14 @@ function handleSubmit() {
       });
     }
   })
+  }else{
+    uni.showToast({
+      title: '请填写必填项',
+      duration: 2000,
+      icon:"error"
+    });
+  }
+  
 }
 </script>
 <style >
@@ -316,7 +327,9 @@ page {
   margin: 80rpx auto;
   display: block;
 }
-
+.required{
+  color:#B20202;
+}
 .headtitle {
   font-family: PingFangSC-Regular;
   font-size: 32rpx;

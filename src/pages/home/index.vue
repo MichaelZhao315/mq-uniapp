@@ -16,7 +16,7 @@
       <view class="searchbox">
         <!-- <uni-search-bar class="uni-mt-10" radius="100" placeholder="输入搜索内容" clearButton="none" cancelButton="none"
           @confirm="search" /> -->
-        <uni-easyinput placeholder="输入搜索内容" suffixIcon="search" v-model="searchData" class="searchinput"
+        <uni-easyinput placeholder="搜索热门文章" suffixIcon="search" v-model="searchData" class="searchinput"
           @iconClick="search" @keyup.enter="search" placeholderStyle=" font-size: 24rpx;color: #004751;" />
       </view>
       <view class="itemWrap">
@@ -43,17 +43,19 @@
       </template>
       <!-- 第+1条 -->
       <template v-if="newList.length > 1">
-        <view class="list" v-for="list in newList" :key="list.id" @click="toDetailFun(list.id)">
-          <view class="left">
-            <text class="title">{{ list.titile }}</text>
-            <view class="time">
-              <view class="num">
-                <image src="@/static/images/view.png" class="view" />{{ list.readingAmount }}次
+        <view class="list" v-for="(list, index) in newList" :key="list.id" @click="toDetailFun(list.id)">
+          <template v-if="index > 0">
+            <view class="left">
+              <text class="title">{{ list.titile }}</text>
+              <view class="time">
+                <view class="num">
+                  <image src="@/static/images/view.png" class="view" />{{ list.readingAmount }}次
+                </view>
+                <text>{{ list.createTime }}</text>
               </view>
-              <text>{{ list.createTime }}</text>
             </view>
-          </view>
-          <image class="rightImg" :src="newList[0].infoPicUrl" />
+            <image class="rightImg" :src="newList[0].infoPicUrl" />
+          </template>
         </view>
       </template>
       <uni-load-more :status="load" :class="newList.length <= 0 && 'load'">
@@ -85,7 +87,7 @@ const state: {
   searchData: string,
   page: {
     pageSize: number,
-    pageNum: number,
+    pageNo: number,
     total: number,
   },
 } = reactive({
@@ -100,11 +102,8 @@ const state: {
   searchData: "",
   page: {
     pageSize: 10,
-    pageNum: 1,
+    pageNo: 1,
     total: 0,
-  },
-  placeholderStyle: {
-
   }
 });
 const { active, newList, newType, banner, load, searchData } = toRefs(state);
@@ -116,16 +115,18 @@ onReady(() => {
 })
 
 onReachBottom(() => {
-  state.page.pageNum++;
+  state.page.pageNo++;
   let data = {
     infoType: state.infoType,
-    infoContent: state.content ? state.content : ""
+    infoContent: state.content ? state.content : "",
+    pageSize: 10,
+    pageNo: state.page.pageNo,
   }
   state.load = "loading";
   getNewsInfo(data).then((res: resultDataInterface) => {
     if (res.code == 200) {
       state.page.total = res.result.total;
-      if (res.result.current >= res.result.pages) {
+      if (res.result.current > res.result.pages) {
         state.load = "nomore"
       } else {
         state.newList = [...state.newList, ...res.result.records];
@@ -133,6 +134,7 @@ onReachBottom(() => {
       }
     }
   });
+
 })
 
 getTabsListFn()
@@ -152,9 +154,12 @@ async function getTabsListFn() {
   const res = await getNewsType()
   if (res.code == 200) {
     state.newType = res.result
+    state.infoType = res.result[0].id
     const data = {
       infoType: res.result[0].id,
-      infoContent: ""
+      infoContent: "",
+      pageSize: 10,
+      pageNo: 1,
     }
     getNewsFn(data)
   }
@@ -180,7 +185,9 @@ function search() {
   state.content = state.searchData
   const data = {
     infoContent: state.searchData,
-    infoType: ""
+    infoType: "",
+    pageSize: 10,
+    pageNo: 1,
   }
   getNewsFn(data)
 }
@@ -191,7 +198,9 @@ function handleChange(val: number, infoType: string) {
   state.infoType = infoType
   const data = {
     infoType: infoType,
-    infoContent: ""
+    infoContent: "",
+    pageSize: 10,
+    pageNo: 1,
   }
   getNewsFn(data)
 }

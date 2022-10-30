@@ -19,7 +19,8 @@
         /* 模块配置 */
         "modules" : {
             "Share" : {},
-            "Maps" : {}
+            "Maps" : {},
+            "Geolocation" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -57,15 +58,10 @@
                     "system" : {
                         "__platform__" : [ "ios", "android" ]
                     },
-                    "baidu" : {
-                        "__platform__" : [ "ios", "android" ],
-                        "appkey_ios" : "",
-                        "appkey_android" : "49TK1SBa3l9VouGdMpALUXS0mNDYVU8t"
-                    },
                     "amap" : {
                         "__platform__" : [ "ios", "android" ],
-                        "appkey_ios" : "",
-                        "appkey_android" : ""
+                        "appkey_ios" : "6d3c92da1a6c606a57836bbf73ad7aec",
+                        "appkey_android" : "6d3c92da1a6c606a57836bbf73ad7aec"
                     }
                 },
                 "ad" : {},
@@ -123,8 +119,9 @@
         /* "wx45e9666248892396", */
         "setting" : {
             "urlCheck" : false,
-            "minified" : false,
-            "es6" : false
+            "minified" : true,
+            "es6" : false,
+            "postcss" : true
         },
         "usingComponents" : true,
         "permission" : {
@@ -134,7 +131,7 @@
         },
         "requiredPrivateInfos" : [ "getLocation" ],
         "unipush" : {
-            "enable" : true
+            "enable" : false
         },
         "lazyCodeLoading" : "requiredComponents"
     },
@@ -153,7 +150,11 @@
     "vueVersion" : "3",
     "h5" : {
         "sdkConfigs" : {
-            "maps" : {}
+            "maps" : {
+                "qqmap" : {
+                    "key" : "IQBBZ-LIR6I-4CSGM-52VJH-WX2A7-UOBND"
+                }
+            }
         },
         "router" : {
             "mode" : "hash"
@@ -163,7 +164,11 @@
                 "enable" : true
             }
         },
-        "title" : "名企—上海落户通"
+        "title" : "名企—上海落户通",
+        "devServer" : {
+            "port" : "3009",
+            "https" : true
+        }
     },
     "locale" : "zh-Hans",
     "fallbackLocale" : "zh-Hans"

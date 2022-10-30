@@ -13,7 +13,7 @@
         </view>
       </view>
       <view class="item">
-        <view class="name" @click="handleLocation(item.latitude, item.longitude,)">
+        <view class="name" @click="handleLocation(item.latitudeNum, item.longitudeNum,)">
           <image class="icon" src="@/static/images/tag.png" />路线
         </view>
         <view class="name" @click="call(item.phoneno)">
